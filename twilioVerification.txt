@@ -1,0 +1,109 @@
+my twilio Account Is:
+ambreenkhurram004@gmail.com
+password:    bloodyHell@5751234
+
+documentation Link is : 
+https://www.twilio.com/docs/verify/quickstarts/node-express:
+
+environment variables:
+TWILIO_ACCOUNT_SID=ACe7d13523ac12eaa259bf64f3a9d42f00
+
+TWILIO_AUTH_TOKEN=692a08b2942a0cde0ac1409f08a2bb6b
+TWILIO_SERVICE_SID=IS780fc9c200024bef91c3bf640c58640c
+TWILIO_API_KEY=SK0444ceff06f3151ccfed8aa760d10847
+TWILIO_API_SECRET=ZUa5LfFMzyamXXmtuh2AqaGVTEh2T6jf
+port=5000
+TWILIO_SERVICE_VERIFY=VA9f4161a15ca65a5ebddd8643c1d17631
+
+
+Note: when you use verification services you need to get services sid from verify and when message then you need to get message sid and so on:
+
+
+import catchasyncerror from "../middleware/catchasyncerror.js";
+import Errorhandler from "../utils/errorhandler.js"
+import dotenv from "dotenv"
+if(process.env.NODE_ENV!=="PRODUCTION"){
+    dotenv.config({path:"backend/config.env"})
+};
+import twilio from "twilio"
+
+const accountsid=process.env.TWILIO_ACCOUNT_SID;
+const api=process.env.TWILIO_API_KEY;
+const apisecrect=process.env.TWILIO_API_SECRET;
+const servicesid=process.env.TWILIO_SERVICE_SID;
+const authtoken=process.env.TWILIO_AUTH_TOKEN
+
+
+
+
+export const tokencontroller=catchasyncerror(async(req,res,next)=>{
+    const identity=req.params.identity;
+    // const accesstoken=new twilio.jwt.AccessToken(accountsid,api,apisecrect);
+    // const chatgrant=new twilio.jwt.AccessToken.ChatGrant({
+    //     serviceSid:servicesid,
+    // });
+    const accessToken=twilio.jwt.AccessToken;
+    const ChatGrant=accessToken.ChatGrant;
+    // accesstoken.addGrant(chatgrant);
+    // accesstoken.identity=identity;
+    const chatGrant=new ChatGrant({
+        serviceSid:servicesid,
+    })
+    const token=new accessToken(
+        accountsid,
+        api,
+        apisecrect,
+        {identity:identity}
+    );
+    token.addGrant(chatGrant);
+    const jwt=token.toJwt()
+    res.status(200).json({
+        token:jwt,
+        identity:identity
+    })
+   
+});
+
+
+
+export const smscontroller=catchasyncerror(async(req,res,next)=>{
+    const accountSid = process.env.TWILIO_ACCOUNT_SID;
+    const authToken = process.env.TWILIO_AUTH_TOKEN;
+    let client=new twilio(accountsid,authtoken)
+// const client = require('twilio')(accountSid, authToken);
+// console.log(client)
+
+client.verify.v2.services('VA9f4161a15ca65a5ebddd8643c1d17631')
+                .verifications
+                .create({to: '+971558965920', channel: 'sms'})
+                .then(verification => console.log(verification.status));
+
+    res.status(200).json({
+        success:true,
+        message:"sms send successfully",
+    })
+})
+
+
+export const verifysmscontroller=catchasyncerror(async(req,res,next)=>{
+    const accountSid = process.env.TWILIO_ACCOUNT_SID;
+    const authToken = process.env.TWILIO_AUTH_TOKEN;
+    let client=new twilio(accountsid,authtoken)
+// const client = require('twilio')(accountSid, authToken);
+// console.log(client)
+
+client.verify.v2.services('VA9f4161a15ca65a5ebddd8643c1d17631')
+                .verificationChecks
+                .create({to: '+971558965920', code: "953500"})
+                .then(verification_check => console.log(verification_check.status));
+
+    res.status(200).json({
+        success:true,
+        message:"sms send successfully",
+    })
+})
+
+
+
+
+

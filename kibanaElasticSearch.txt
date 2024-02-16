@@ -1,0 +1,313 @@
+GET indexname/_search
+to search whole table:
+
+POST indexname/doc/106{
+json format data like postman also can pass array
+}
+to update simply update the whole data mention with id 106, can use post request;
+
+
+to search api
+
+GET indexname/doc/_search?size=20
+
+when you mention doc it means you are searching inside of doc of indexname and size mean limit 20
+
+GET indexname/doc/_mapping
+mapping is used to see the whole map fo documnet
+
+GET indexname/doc/_count
+
+********
+DELETE indexname/doc/id
+
+delte by query:
+ it is used to delte fields in a document:
+
+
+POST indexname/_delete_by_query{
+query:{
+match:{empname:khurram}
+}
+};
+
+to update:
+POST indexname/doc/id/_update{
+script:{
+source:ctx._source.name=params.name,   {here you mention complete address}
+lang:painless
+params:{
+name:kurram,
+
+}
+}
+}
+
+
+
+***********************
+*************************
+*****************ADVANCE SEARCH IN ELASTICSEARCH**********************
+********************
+
+bool:****************
+it stand for boolean and you use it to construct compound queries with different logical operators like {must, must_not, and should}
+must:
+this indicates that document must satisfy all condition,
+shoud:
+this indicates that atleast one condition should be verified,
+must_not:
+it is oposite of must that means this condition should not be fulfilled:
+
+fuzzy:******************
+in means that query used to find docuemntsthat contains similar to a specified term,
+it is useful to find when you don't have exactly same but then you can find the similar search;
+when you use fuzzy, your mention fields where you want to use the search within
+the value you want to search
+and the level of fuzziness
+
+"fuzzy": {
+    "name": {
+        "value": "req.query.str",
+        "fuzziness": "AUTO"
+    }
+}
+
+multi_match:*******************************
+multiple  fields within a document is used to perform a search against multiple fields within a document
+when you use it with bool with should, then it means atleast one of the condition of match should be verified,
+other wise simply it means multiple search in a document.
+
+{
+    "multi_match": {
+        "query": "search_string",
+        "fields": ["field1", "field2", "field3"],
+        "type": "best_fields"
+    }
+}
+
+it has three parameters that you must have to pass.
+query: that you want jto search for,
+fields: [field1, fields2, ],
+type:best_fields
+------------------+
+in type can be best_fields, most_fields,cross_fields,phrase
+
+***********************************************
+function_score:
+is is useful to to infuence the order of search result based on certain criteria or scoring functions
+it is useful to apply more weight to recent docuemtns
+
+you can define multi scoring function inside of scoring functions like "query" and then each function has its own login for scoring document.
+
+{
+    "query": {
+        "function_score": {
+            "query": { /* Your main query */ like bool,must, },
+            "functions": [
+                { /* Scoring function 1 */ },
+                { /* Scoring function 2 */ },
+                // Additional scoring functions...
+            ]
+        }
+    }
+}
+
+
+******************************
+
+{
+                                            "bool": {
+                                                "should": [{
+                                                    "multi_match": {
+                                                        "query": req.query.str,
+                                                        "type": "bool_prefix",
+                                                        "fields": [
+                                                            "subcategory_name^4",
+                                                            "name",
+                                                            "name._2gram",
+                                                            "name._3gram",
+                                                            "sku"
+                                                        ]
+                                                    }
+                                                },
+
+
+here bool_prefix type mean that it will match the term if in querry it is app it will match terms similar to app or apple or apps like auto complete
+
+subcategory_name^4:***********
+
+it means that subcategory_name field with a boost factor of 4, in this case matches found in the subcatory_name field will be weight higher in the relevance scoring compared to other fields
+means something similar to find in this field have more importance then other fields;
+
+name:*********
+this specifies the name field without any boost factor.
+
+name._2gram and name._3gram:
+
+sku**********
+
+this specifies the sku field, where matches will be searched for without any boost factor
+
+
+
+ index: process.env.es_index,
+            body: {
+                    "query": {
+                        "function_score": {
+                            "query": {
+                                "bool": {
+                                    "must": [
+                                        {
+                                            "match": {
+                                                "stock": "In stock"
+                                            }
+                                        },
+                                        {
+                                            "bool": {
+                                                "should": [{
+                                                    "multi_match": {
+                                                        "query": req.query.str,
+                                                        "type": "bool_prefix",
+                                                        "fields": [
+                                                            "subcategory_name^4",
+                                                            "name",
+                                                            "name._2gram",
+                                                            "name._3gram",
+                                                            "sku"
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "fuzzy": {
+                                                        "name": {
+                                                            "value": req.query.str,
+                                                            "fuzziness": "AUTO"
+                                                        }
+                                                    }
+                                                }]
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "functions": [
+                                {
+                                    "filter": { "match": { "subcategory_id": "205" } },
+                                    "weight": 5
+                                },
+                                {
+                                    "filter": { "match": { "subcategory_id": "224" } },
+                                    "weight": 4.9
+                                },
+                                {
+                                    "filter": { "match": { "subcategory_id": "212" } },
+                                    "weight": 4.8
+                                },
+                                {
+                                    "filter": { "match": { "subcategory_id": "206" } },
+                                    "weight": 3
+                                },
+                                {
+                                    "filter": { "match": { "subcategory_id": "455" } },
+                                    "weight": 4.4
+                                }
+                            ]
+                        }
+                    },
+                    "aggs": {
+                        "categories": {
+                            "terms": {
+                                "field": "subcategory_id",
+                                "size": 10000
+                            },
+                            "aggs": {
+                                "docs": {
+                                    "top_hits": {
+                                        "_source": ["subcategory_id", "sub_sub_category_id", "image", "category_id", "category_name", "subcategory_name", "name", "sku", "url", "sub_sub_category_name"],
+                                        "size": 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+            }
+
+
+***********************************************************************************************************
+*****************************
+****************
+Filter************
+it means that document must match with the associated weight; the above filter uses a match query to match document  based on the value ofthe "subcategory_id" field.
+
+filter means that subcategory id must be matched/
+***********************************************************
+
+
+weight ********************
+when you perfom searching with function_score then weight are assigned to functions with the query, so now what ever weight you assigned in your query they are sued to influence the relevance scores of the documents that matched the specified filters, means how document are matched the search criteria.
+***************************
+****************************
+"aggs": {
+                        "categories": {
+                            "terms": {
+                                "field": "subcategory_id",
+                                "size": 10000
+                            },
+                            "aggs": {
+                                "docs": {
+                                    "top_hits": {
+                                        "_source": ["subcategory_id", "sub_sub_category_id", "image", "category_id", "category_name", "subcategory_name", "name", "sku", "url", "sub_sub_category_name"],
+                                        "size": 1
+                                    }
+                                }
+                            }
+                        }
+
+
+
+
+aggs***************
+this is the top level aggregation object that means we are going to add more aggregations
+
+categories:************
+this is the named aggregation bucket, which will contain the result of aggregation;
+
+terms***********
+fields:subcategory_id: this specifies that we want to aggregate documents base of the value of the subcategory_id field.
+
+size:1000:
+this means total output of search result  in this case it set to 1000
+
+nested aggregation:
+inside of categories aggregation there is another aggregation defined:
+
+docs: aggregation
+this aggregation is of type "top_hits", which is used to retrieve the top hits(documents)
+for each bucket produced by the parent aggregation.
+
+size:1
+this parameter specifies that we want only want to retrieve the top 1 document from each bucket.
+
+source:
+this parameter specifies which fields should be included in the retrieved documents. in this case it includes "subcategory_id"
+
+
+
+***************************************************
+*********************************9+
+*******************************************
+ndex: 'search_redirect2',
+            body: {
+                "size": 1,
+                "_source": true,
+                "query": {
+                    "bool": {
+                        "must": [
+                            { "match_phrase": { "search_key": req.query.str } }
+                        ]
+                    }
+                }
+            }
+
+here when you search in an index you set the _source:true, that is mean by that when you search it only come the json document not with source info so we have to set source true that we can get our source data as well

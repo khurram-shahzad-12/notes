@@ -1,0 +1,552 @@
+javascript complete Notes:-----------
+
+-----------------------------------------------------------------------------------
+what is variable:
+const myName="khurram shahzad"
+
+here const is variable, myName is the name of varibale that we assigned and it's value is  "khurram shahzad"
+
+varibale name can be only start with character or $ or _
+other then this can't be start
+can't use special characters
+========================================================================================
+types of data that we can assign to a variable
+1-primitive data type,
+2- non primitive data type,
+------------------------------ 
+primitive data type:-
+
+string,
+number,
+boolean,
+bigInt,
+undefined,
+symbol,
+----------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+Non primitive date types:
+object and array 
+--------------------------------------------------------------------
+				Array:
+------------------------------------------------------------------------
+ We can store different kind of data in an array, like you can store boolean, string, number in a single variable
+
+you can find all array emthods here website
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+https://www.w3schools.com/jsref/jsref_search.asp
+
+array index start from 0;
+inside data is called elements of array:
+
+const myfriends=["archad","khalid",22,boolean];
+1:navigate in an array: console.log(myfriends[2]);
+
+2: how the check total length of an array:
+consol.log(myfriends.length)
+if you want to get the last element of you array:
+console.log(myfriends.length-1)
+
+method of an array:
+
+---indexof(), lastindexof("a")
+===let result = array.lastIndexOf("planet");
+
+let text = "Mr. Blue has a blue house";
+let position = text.search("blue");
+search methods return only index of required 
+
+const array1 = [5, 12, 8, 130, 44];
+const found = array1.find((element) => element > 10);
+find method only return one element whenever condition satisfied;
+
+const words = ['spray', 'elite', 'exuberant', 'destruction', 'present'];
+const result = words.filter((word) => word.length > 6);
+// Expected output: Array ["exuberant", "destruction", "present"]
+
+const months = ['March', 'Jan', 'Feb', 'Dec'];
+months.sort();
+console.log(months);
+// Expected output: Array ["Dec", "Feb", "Jan", "March"]
+in sort method it's sorting according to alphabet like first d then f then j them m
+it will do the same with number i mean it will first see only first alphbet
+
+animals.push('chickens', 'cats', 'dogs');
+// Expected output: Array ["pigs", "goats", "sheep", "cows", "chickens", "cats", "dogs"]
+use to add something end of the array but it return only the length of array, although it pushed data;
+
+unshift() method is use to add data start of an array;
+pop() method is use to remove last element of an array it is reverst of push
+shift() method use to remove an element start of an array:
+
+you can do crud operation in an array bu using splice() method:
+
+const month=month.splice(4,0, "december")
+
+const month=month.splice(index from where you want to start,any index you want to delete,anything you want to add)
+if you want to add something to an array end
+const month=(month.length-1,0,"dec")
+it's return value will be an empty [];
+ 
+splice method you use to do crud operation and to find index you can use indexof method to find index and then can use it inside of splice method
+____________________________________________________________
+
+rest go to website linkand check everything from there:
+
+1: filter:
+2: sort and compare:
+3: insert, add replace, delete elements in an array:
+4: map,reduce, filter in an array
+
+const array1 = [1, 4, 9, 16];
+
+// Pass a function to map
+const map1 = array1.map((x) => x * 2);
+
+console.log(map1);
+// Expected output: Array [2, 8, 18, 32]
+map method is a chainable method compare to forEach method because it return new array and you can use other methods with it, but on other hand forEach methods return undefined;
+
+Reduce method:
+reduce method help to addition, average, 
+it have four arguments(accumulator,current value, current index, source array)
+
+let sum=array.reduce((accumulator,currentElement,index,array)=>{
+	return accumulator+=currentElement;
+	},"any initial value 235")
+
+let color=['red','blue','green'];
+color.includes('red');
+out put will be true or false;
+
+const array=[["khurram"],["adnan"],["shahzad"]];
+array.flat();
+output will be ["khurram',"adnan',"shahzad"];
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+				oops: object oriented programming
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+object leterals are to save key value pairs 
+key value pairs:
+let biodata={
+	name:"khurram",
+	lName:"shahzad",
+	getData:function(){console.log("my name is khurram shahzad")},
+};
+ 
+THIS:
+the definition of this is it contain the current context and it refer to the current context:
+
+Destructuring:
+const {name,lName}=biodata: it work like this:
+
+Spread Operators:
+it means you add one array to another array by simply using ...arrayname for Example:
+let colors=["red","blue","green"];
+let mycolor=["white","black",...colors];
+output will be mycolor=["white","black","red","blue","green"];
+
+to get all value in an object:
+let name={fname:'khurram',lname:"shahzad"}
+Object.values(name); output will be ["khurram',"shahzad']
+to convert whole object to an array:
+Object.entries(name); out put will be arrayobj=[[fname:"khurram"],[lname:"shahzad]];
+
+to convert array back to object:
+Object .fromEntries(arrayobj)
+
+REST OPERATORS:
+if you want to add two or more then two objects together; then this process is called spread operators;
+const person={name:"khurram",age:87};
+cosnt moreperson={...person} output will be same like spread operators
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ ---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+				STRING AND STRING METHODS
+---------------------------------------------------------------------------------
+let myFriends="my name is khurram shahzad"
+length of a string will be like this: myFriends.length
+
+escape characters are the characters that are use to write special character inside of a string:
+
+consol.log(myFriends.indesOf("shahzad"));
+console.log(myFriends.lastIndexOf("s",5);
+consol.log(myFriends.search("adnan"))
+
+slice(start, end)
+substring(start, end);
+substr(start,length)
+
+mydata.replace("khurram","adnan")
+
+mydata.charAt(position) means this method indicate at which code what character we have
+mydata.charCodeAt(position)
+
+mydata.toLowerCase();
+mydata.toUpperCase();
+
+let name="my name "
+let full="khurram"
+let newname=full.concat(name):
+
+trim() method is use to remove extra white space from both sides of a string: just from sides;
+
+how to convert string to an array?
+we use split method to convert a string to an array;
+
+let name="khurram,shahzad,adnan";
+name.split(","); or
+let name ="khurram shahzad adnan";
+name.split("");
+
+
+------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+how to check type of data in a variable
+
+let myName="khurram shahzad"
+console.log(typeof(myName))
+
+NaN= not a number;
+in javascript true represent 1 and false represent 0
+
+------------------------
+to check if output is a number or not, output of this will be true or false;
+const phonenumber=1253652
+console.log(isNaN(phonenumber))
+ false
+------------------------------------------------------------
+  =====================================================================================
+
+Expression and operators;
+
+1.Assignment operators,   =
+2.Airthmetic operators, 
+sub types of aithmetic operators:
+  + - * /    remainder operator 81%8=1
+
+increament and decreament operator:
+x++ ++x
+
+3**3 mean 3*3*3
+3.comparison operators,    ==  !=  > < >= <= 
+4.logical operators,          && || !
+5.String operators,         + conc
+6.conditional operator also call ternay operator,
+
+----------
+ternary operator is like this (condition)?value1:value2
+ternary operator work like if else statement you can say it's a short form of if else statement
+------------
+example 
+a+b=3,
+in above example a will be called operand, and + sign is called operator, and = sign is called assignment operator, means operator that assigning a value to an operand,
+
+in logical operator:
+&& 
+operator mean all conditional should be true example
+a>b && b>c && c>d
+ in above example expression will continue if and only if a is greater then b then it will go to next expression otherwise it will fall in false;
+
+||
+or operator will only continue if any of the express true if will fall in true, so does not matter if one is wrong it will check the other one;
+
+!
+not operator will reverse the expression example if a>b is true then !(a>b) will fall in false;
+
+-------------------------------------------------------
+-------------------------------------
+Control state and loops;
+
+ifelse
+switch case statement
+while loop
+do while loop
+for loop
+for in loop
+for of loop
+for each loop
+
+
+---------------------------------------------
+what is truthy and falsy value in javascript
+in javascript we have five falsy value it means when you see those value is javascript that means ans is false
+0, "", undefined, null, NaN and false as well
+why this thing important to know because if any of this thing you find in your ifelse statement that response will go on else statement, so never add these falsy value in your if statement because javascript will automatically take the response to else statement
+
+-------------------------
+
+switch case 
+
+switch(area){
+	case "circle":
+consol.log(jdkflkd)
+	case "triangle"
+console.log("dlkjflkjkldj")
+	default:
+consol.log("kldlkfjlf")
+_____________
+
+break 
+break state is a different thing it use to stop the current loop, if the condition is successfull it just stop the loop
+___________________________________________________________________
+
+while loop:
+let num=0
+
+while(num<=10){
+	consol.log(num);
+	num++}
+--------------
+do while loop:
+
+let num=0;
+
+do{console.log(num) 
+num++
+}while(num<=10)
+
+do while loop first run and then check the condition it always run atleast one time
+-----------------------------
+for loop
+
+for(let i=0; i<=10; i++){console.log(i)}
+
+-------------------------------------------------------------
+for in, for of and for each loop are specially use in an array:
+i mean you can't find increament ++ in these kind of loop so they work like this:
+in this for in loop we only get index number of each element of array:
+
+const myfriends=["khurram","adnan","shahzad'];
+for(let elements in myfriends){console.log(elements)}
+
+-----------------------------------
+for of loop:
+ this array gives each element of array but no index
+
+
+const myfriends=["khurram","adnan","shahzad'];
+for(let elements in myfriends){console.log(elements)}
+
+---------------------------------------------------------------
+
+forEach loop:
+this is the complete and most important loop :
+
+const myfriends=["khurram","adnan","shahzad'];
+
+myfriends.forEach(function(elment,index,myfriends){
+	consol.log(element)
+})
+_____________________________________________________________________________________________
+
+function:
+
+1;
+function functionname(a,b){here function statement}
+
+how to call a function functionname(20,20);
+here a and b are called function parameter and the value that we pass for a and b that 20,20 they are called arguments
+
+you can directly call a function:
+simply save function in a variable like this
+const hell=functionname(20,20);
+hell;
+ now by simply writing hell you can call a function;
+
+by simply writing return you can get a return value from a function
+
+
+------------
+Arrow Function:
+const sum=()=>{}
+
+
+___________________________________________________________
+
+let and const and var:
+var has a global scope inside a function:
+let and const has block level scope but const value can't be change it stay's same:
+-________________________________________________
+Templete String: ``
+backtick sign any thing you can wring inside with ease and by using dollar sign
+___________________________________
+Default Argument:
+in function sometimes you directly pass argument, so incase if you don't pass argumennts when you call a function by defult it will take that default argument but it's first priorty will be the augument that you give when you call a function:
+____________________________
+Rest operators
+______________________________
+Destructuring
+_______________________
+object properties
+___________________
+Spread operators
+
+
+___________________________________________________________________________________________
+		DATE AND TIME OBJECT
+________________________________________________________________________________________________
+new Date();
+new Date(year, month,day, hours minutes, seconds, milliseconds);
+new Date(milliseconds);
+new Date(date string);
+
+
+new Date().toString(); complete date info coming with time and everything;
+new Date().toLocaleString(); local way date and time coming;
+new Date().toLocaleTimeString();
+new Date().toLocaleDateString();
+
+
+to get the all milliseconds from 1st jan 1970 to untill you call this function, all ans you can get like this simple methods;
+
+Date.now();
+you will get time in milliseconds and to convert this milliseconds back to normal time;
+new Date(miliseconds).toLocaleString();
+javascript count months any month from 0 to 11 so dec will be represent 11 and jan is 0
+if you want to make any date by adding argement then month to add compulsory and year, this is minimum requirement;
+if you want to create any date with argument then to see it perfect way use toLocalString();
+
+currentdate.toLocaleString();
+currentdate.getFullYear();
+currentdate.getMonth();
+currentdate.getDate();
+currentdate.getDay();
+
+if you want to set you own Date: output will be in milliseconds;
+currentdate.setFullYear(2024);
+currentdate.setMonth(10)
+currentdate.setDate(6);
+currentdate.toLocaleString();
+currentdate.setTime();
+currentdate.setHours(5)
+currentdate.setMinutes()
+currentdate.setSeconds();
+currentdate.setMilliseconds();
+
+
+if you want to get time as you want;
+currentdate.getTime();
+
+if you get new time new Date() then by using above you can convert it into miliseconds
+ 
+currentdate.getHours();
+currentdate.Seconds();
+currentdate.getMilliSeconds();
+currentdate.getMinute() 
+
+_________________________________________________________________________________________
+		Math object and its Method in JavaScript
+_________________________________________________________________________________________
+Math.PI; give the pie value;
+Math.round(number in points); give the whole numbers;
+ Math.pow(2,3); 2 raise to power 3;
+Math.squrt(25) squre root of 25;
+Math.abs(-9.325) 9.325 remove the negative;
+Math.ceil(99.1) give the upper value 100;
+Math.floor(99.1) gives the bottom value 99;
+Math.min(22,36,-25,-69,56,2) gives the min value -69;
+Math.max(66,55,95,3,8,52) give the max value 95;
+Math.random(); will always gives a random value between 0 and 1;
+Math.trunc(4.6) it will return any value before decimal what ever it is 4
+
+-______________________________________________________________________________________
+			DOM VS BOM
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+window is a main contianer where as document is a part of window container;
+from window container you can access directly to different objects like
+location, navigator,screen, frames,history,xmlhttpreuest.
+
+where as document is a part of window DOM mean document object model
+BOM is stand for browser object model:
+
+window.location.href:
+window .history.back();
+alert and confirm and prompt are also part of BOM browswer object model;
+
+in document there are html tag and inside of it there is head and body tag;
+and inside body tag there are more tag like a, p, f1 etc tags;
+document.head:
+document.body.childNodes :
+document.body.children;
+to check if body has children or not document.body.hasChildNodes();
+to get first child or any number of child: document.body.firstElementChild
+document.body.previousElementChild;
+same to access brother:
+document.body.previousElementSibling:
+document.body.nextElementSibling
+document.head.nextSibling;
+
+document.getElementById("heading").innerHTML=
+document.getElementsbyClassName("heading").innerHTML= classes could be more then one so elements
+document.getElementsbyTagName("p")=
+in forms only you can use:
+document.getElementsByName("gender")
+
+in querySelector you can use any thing either class id, tag etc:
+document.querySelector("#heading").innerHTML= only for first element
+document.querySelectorAll("#heading").innerHTML= for all elements;
+
+when something happend to html element it is called event :
+onclick() event addEventListener():
+MouseEvent, focusEvent, KeyboardEvent.
+onMouseUp, onMouseDown,onKeypress,
+onkeydown,onkeyup, onchange,
+
+______________________________________________________________________________________
+
+setTimeout(), clearTimeout(), setInterval(), clearInterval()
+________________________________________________________________________________________
+setTimeout(function, milliseconds): window allow to execute a code a specific time. but one time only
+setInterval(function, milliseconds): it repeat the execution of code continuously;
+
+
+_______________________________________________________________________________________
+		
+_________________________________________________________________________________________
+
+
+to give padding;
+let myage="26".padEnd(5); output will be undefined but when you check myage="26     ";
+
+trimstart and trimend method to remove extra spaces from the start and end
+______________________________________________________________________________________
+			
+BigInteger:
+let oldnum=Number.MAX_SAGE_INTEGER;
+if you want to add more number here then 3254652335335+12n
+_______________________________________________________________________________
+Event capturing and Event Bubbling:
+event bubbling is by default it means when ther are two div and one is child and other is parentj div. and you add addeventlistner on both div then by default first child div event will executed and then parent div event will occur, addeventlistner has three argument (click, eventname, true/false) by default third value is set to false, but if you make it true then first parent event will occured then child, and if first parent then child event occured, this process is called event capturing, you can stop event bubbling by adding event.stoppropogation on child event when executed
+________________________________________________________________________________________________
+
+lexical scoping mean that variable can access to their parent variable but parent can't to their children variables
+__________________________________________
+synchorous javascript function mean that every line will be executed line by line and it is by default other hand asynchrounous mean all jobs will be continue at one time, if one job will take some time code also start executing the next line 
+________________________________________________________________________________________
+Currying is a techneque of evaluating function with multiple argument into the sequent of function with single aruguments;
+ it like suppose when you pass multiple argument in a single function but other hand funciton currying is you have multiple argument seperately, so you define inside of each function define another function to access the next argument and so on; example 
+funciton sum (4)(40)(6);
+so u take once first arguemnt and return another function and use second argument and so on:
+_______________________________________________________________________________________
+TO convert json to object JSON.parse();
+to convert string: JSON.string();
+___________________________________________________
+PROMISES:
+
+const setHeader={headers: {Accept:"application/json"}}
+fetch(https://www.localhost.com/data,setHeader).then(()=>res.json()).then((data)=>data.).catch((error)=>{console.log(error)})
+___________________________________________
+
+
+
+
+
+
+
+
+

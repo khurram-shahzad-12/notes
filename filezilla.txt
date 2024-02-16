@@ -1,0 +1,36 @@
+filezilla complete notes:
+
+you need ftp account to use filezilla:
+
+
+ftp: file transfer protocol
+its a network protocol to transfer files between client to server:
+
+sftp:
+when you server is secure i mena data is encrypted it is called 
+
+to do transfer we need a software filezilla:
+
+
+
+download filezilla client:
+
+search in google and download it:
+
+left side it will be your local com file and right side will be server files
+
+ now you need ftp account which you gonna get from your host server ;
+or go to c panel and click on FTP Account
+
+here create new account and here you can set permission how it simple here you will find an open domain add domain and then on directory just add that directory that you want to give acces to that user. now user only have access up to that directory:
+
+now account is created and now go to the new account you created simply go to that account click on configure ftp client then you will find all details that you need to connect with filezilla:
+
+simply from server right click and download the file and on local computer right click upload the file
+
+---------------------------------------------
+------------------------------------------------------
+
+
+
+

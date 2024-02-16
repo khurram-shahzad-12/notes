@@ -1,0 +1,29 @@
+http and fpt and smtp and websocket are different communication channels;
+
+http is a oneway communication where only client can only request to server then server response to client,
+ 
+
+but in websocket is a way where you create a connection between your client and server, and in this connection even server can send notification to client as well without any request;
+------------------------------------------
+
+socket.io is a library of websocket. which use to make is simpler to user of websocket/
+----------------
+
+io is like a main circet and socket is like a subpart of it, in an io there could be many sockets
+
+when we send something from io it automatically goes to all sockets.
+and to recent any event we use socket.on or io.on event this thing is use to receive any event.
+
+
+EMIT: 
+this is use to send any event for example socket.emit("date);
+ON:
+this is use to receive any event example socket.on("date");
+BROADCAST:
+to send any event to all socket except the senders,
+IO:
+is same but we send it from backend and it send event to all sockets,
+TO:
+to send event to particular socket;
+JOIN:
+this is use to make a group of different socket then you can send same event to different socket that you join to then you use TO event to send notification to particular group of socket

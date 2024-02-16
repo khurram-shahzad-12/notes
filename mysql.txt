@@ -1,0 +1,519 @@
+My Sql complete notes:
+
+by default port is 3306 -------------------------\\\
+i set the password bloodyhell575
+
+mysql is a relational database system, it stored in structured information:
+
+relational database store in form of table,rows,columns
+_________________________________
+
+need to download mysql community server:
+https://www.mysql.com/downloads/
+and then to bottom 
+mssql community(gpl) downloads
+then click on mysql installer for windows:
+from here you only need to download the smaller file the one is only 2.1M and then install it in your system:
+______________________________--------
+then by choosing custom need to install mysql workbench and mysql server
+
+then click on next ans so on:
+when it give option to configuration don't select anything just click on execute:
+
+then mysql workbench will be open automatically:
+ 
+workbench is like an ui for this database; if it does not open then go to start and open it manually:
+
+_______________________________________________
+now when workbench is open you will find option: 
+MySql connections
+click on it and enter password then your database will open:
+
+________________________________________
+now how you will access to your database from powershell:
+ you need bin folder location in mysql program folder simply get it and add in command:+++++++++
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin
+open powershell and go to this location cd "above address"
+_________________________________
+
+now write here      ----mysql -u root -p press enter
+and next line      enter you password
+________________________________________________________
+____________________________________________________________
+command prompt :
+commands:
+it command work with semi column ;
+show databases;  press enter 
+
+to create new database: command:
+----create database databasename     then press enter
+
+to enter any database: command:
+
+-----use databasename     then press enter:
+______________________________________________________
+
+now open workbench:
+
+on left bottom click on schema:
+and where it's written 1 write command to create database:
+-----create database databasename  
+then click on electric sign mean execute:
+then new database will be created:
+then down column you wil see output in action:
+____________________________________________
+now we need to use this database so refresh the schemas then you will find this database that you created write now:
+
+now select new database that you want to use:
+----use databasename and then same click on yellow electric sign:
+___________________________________________
+now when you want to create a table:
+click on table:
+
+and then: command:
+CREATE TABLE users(
+id int unsigned,
+name verchar(100),
+email verchar(150),
+password verchar(100),
+contact verchar(15),
+address text,
+dob date,
+gender enum ("M","F","O"),
+status boolean
+)
+
+
+
+__________________________________________________________________
+_________________________________________________________
+___________________________________________________________
+crud operation with nodejs mysql:
+
+__________________________________________________________________________________________
+
+CREATE TABLE users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    gender ENUM('Male', 'Female', 'Other'),
+    nationality VARCHAR(50),
+    password VARCHAR(255) NOT NULL, -- Adjust the length based on your password policy
+    mobile VARCHAR(15),
+    date_of_birth DATE,
+    refid INT,
+    country VARCHAR(50),
+    emirates VARCHAR(50),
+    status ENUM('Active', 'Inactive', 'Pending') DEFAULT 'Pending'
+);
+
+postman request 
+{
+  "first_name": "John",
+  "last_name": "Doe",
+  "email": "john.doe1222@example.com",
+  "gender": "Male",
+  "nationality": "American",
+  "password": "secure_password",
+  "mobile": "1234567890",
+  "date_of_birth": "1990-01-01",
+  "country": "USA",
+  "emirates": "SomeEmirates",
+  "status": "Subscribed",
+  "subscribe":"1"
+}
+____________________________________________________________
+
+
+CREATE TABLE ourshopee_user_address(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    country_id INT,
+    user_id INT,
+    name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    company VARCHAR(100),
+    mobile VARCHAR(15),
+    emirate VARCHAR(50),
+    area VARCHAR(50),
+    address VARCHAR(255),
+    address2 VARCHAR(255),
+    building_name VARCHAR(100),
+    date DATETIME,
+    latitude DECIMAL(10, 8),
+    longitude DECIMAL(11, 8),
+    deleted BOOLEAN,
+    default_address BOOLEAN,
+    status VARCHAR(50)
+);
+
+
+____________________________________________
+TO EXECUTE A COMMAND HIGHT THE WHOLE COMMAND YOU WANT TO EXECUTE THEN CLICK TO SECOND ELECTRIC SIGN THE YELLOW ONE
+
+
+we use semicolumn in sequel language ; and also we can use capital or small alphabets on this database:
+
+to create database in workbench:
+create database databasename;
+
+CREATE DATABASE IF NOT EXISTS databasename;
+
+to delete a database:
+drop database databasename;
+DROP DATABASE IF EXISTS databasename;
+
+to see all databases:
+SHOW DATABSES;
+
+to use a database :
+use databasename;
+
+to see tables of a database
+SHOW TABELS;
+
+
+to create new table:
+
+create table tablename(
+id INT PRIMARY KEY,
+name VARCHAR(50),
+age INT NOT ALL
+);
+
+
+TO ADD DATA IN TABLE:
+
+INSERT INTO tablesename VALUES(1, 'AMAIN,26);
+INSERT INTO  tablename VALUES(2, "sharda", 24);
+then execute it
+
+
+to get all values from a table:
+
+SELECT * FROM tablename;
+
+___________________________________
+data types:					example
+
+CHAR   strings that has fix length max size 255    CHAR(50)
+VARCHAR  it means string by can be size vary		VARCHAR(200)
+BLOG  string  very large size			BLOB(1000)
+INT number				INT
+TINYINT 			-128 TO 128
+BIGINT
+BIT 			bit(2)
+FLOAT  TO STORE DECIMAL NUMBER
+DOUBLE  same like above decimal but big number
+BOOLEAN    0 OR 1
+DATE    Y M DATE
+YEAR
+default  INT DEFAULT 25000 
+it means that if salary is not mention it will be 25000
+
+primary key:
+it will be main key, it should be uneque, it is same like id , it will not be a null value, and will not repeat, and in a table there is only one primary key:
+
+Foreign key:
+
+its although exist in a column but it is primary key of some other table primary key: it could be repeated values, when you store primary key of one table to another table it will be foreign key of that table:
+forigin key is use to link two table;
+
+
+example to make foreign key:
+
+CREATE TABLE tablename(
+cust_id int,
+FOREIGN KEY (cust_id) references customer(id)
+);
+
+it means that in tablename we are creating a cust_id as this key is using some other table as well we don't needto mention it's name simply we say that 
+FOREIGN KEY the present column name cust_id and in reference we will mention other table name which is customer and it's id that is suppose id so customer(id)
+
+
+
+primary key (not null int UNIQUE PRIMARY KEY)
+
+LET SUPPOSE:
+
+CRETAE TABLE tablename(
+id INT PRIMARY KEY,
+city VARCHAR(50),
+age INT,
+CONSTRAINT age_check CHECK(age >= 18 AND city="Delhi")
+);
+
+CONSTRAINT IT IS LIKE A CHECK WHEN YOU WRITE YOU CAN ADD CONDITIONS;
+
+
+
+
+________________________________________
+TABLE RELATED QUERIES:
+
+CREATE TABLE tablename(id INIT PRIMARY KEY)
+ 
+to delete a table:
+ DROP TABLE tablename; 
+
+to see all data of a table ------------------------------
+SELECT * FROM tablename;
+
+to insert data in table--------------------------
+INSERT INTO tablename(name,rollno)VALUES("khurram",36);
+
+to insert a single value:
+INSERT INTO tablename(name)VALUES("ADNAN");
+
+-----------------------
+____________________________________
+for query or search in mysequel:
+_______________________________________
+++++++++++++++++++++++++++++++++++++++
+to get everything
+SELECT * from tablename;
+
+to get only two columns like name and rollno
+SELECT name,rollno FROM tablename;
+
+SELECT name FROM tablename;
+
+to get unque like no repeated values from table:
+SELECT DISTINCT name FROM tablename
+
+the above command mena if some thing is repeated it won't come again;
+
+we can use condition with select statemment
+
+SELECT * FROM tablename WHERE marks >50;
+SELECT * FROM tablename WHERE city='rawalpindi'
+
+AND OPERATOR:
+
+to combind with two condition:
+
+SELECT * FROM tablename WHERE mark>50 AND city="rawalpindi"
+
+
+SELECT * from tablename WHERE marks+10>80;
+
+operators:
++ - * / = != > < AND OR NOT IN BETWEEN ALL LIKE ANY & 
+
+AND :
+ this operator mean both condition shoudl be true:
+SELECT * FROM table name WHERE marks>50 AND city= "rawalpindi"
+
+OR:
+SELECT * FROM table name WHERE marks>50 AND city= "rawalpindi"
+
+SELECT * FROM tablename WHERE marks BETWEEN 80 AND 90;
+
+SELECT * FRP, tablename WHERE  city IN ("rawalpindi","islamabad");
+
+SELECT * FROM tablename WHERE  city NOT IN ("rawalpindi","islamabad");
+
+SELECT * FROM table table LIMIT 50;
+
+SELECT * FROM tablename ORDER BY city ASC;   (means abcdef)ascending order
+also we can get ascending order according to marks:
+
+SELECT * FROM student ORDER BY marks DSC;
+
+_____________________________________________
+
+AGGREGATE FUNCTIONS:
+
+COUNT()
+MAX()
+MIN()
+SUM()
+AVG()
+
+to get maximum marks: WE have field marks in our table:
+SELECT max(marks) from tablename;
+
+to get min marks
+SELECT min(marks) from tablename
+
+to get total count from table:
+SELECT COUNT(rollno) FROM tablename
+
+to get averge marks:
+
+SELECT avg(marks) from tablename:
+=================================================
+============================================
+=====================================
+
+if we need some data in group then we use these clause i mean conditions:
+means different condition on single 
+
+example:
+
+SELECT city, count(name) FROM tablename GROUP BY city;
+
+it's mean it will group of each unique city, like if one city is repeat will be ignore next will se that it will count name that how many student in each city,
+count is different function;
+as many thing we will add in select all those we need to add in group by;
+
+same instead of count(name ) we can add different function like averge sum min max etc;
+
+
+also we can do group on differnt way as well:
+example
+
+SELECT grades, count (rollno) FROM tablename GROUPBY grades ORDER BY grade;
+
+
+==========================
+SELECT city count(name), FROM student GROUP BY city HAVING max(marks)>90 ORDER BY city ASC;
+
+HAVING is use to apply different condition on groups: same like where;
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++
+-----------------------------------------------+++
+UPDTE OPERATION;
+to come out from safe update mode from sql command is:
+SET SQL_SAFE_UPDATES=0;
+
+UPDATE tablename SET grade="0" WHERE grade="A";
+
+UPDATE tablename  SET grade="4" WHERE marks BETWEEN 80 AND 90;
+
+
+____________________________________________
+
+DELETE FROM student where marks<33;
+
+
+__________________________________________________-
+____________________________________________________
+
+FOREIGN KEY:
+suppose we have two table ones we have course table with id and  name and other table it's name is teacher table and inside teacher table we have id,name,dept_id
+
+
+FOEEIGN KEY(dept_id) References course(id)
+ON DELETE CASCADE
+ON UPDATE CASCADE
+
+
+
+IF we pass above two state at time of creating table the when we update or delte parent table row then it's accorindgly child table data will be either updated or delted:
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+to add new column:
+
+ALTER TABLE tablename ADD COLUMN age INT;
+
+to drop  table
+
+ALTER TABLE tablename DROP COLUMN age;
+
+tp rename table:
+
+ALTER TABLE tablename RENAME TO newtablename;
+
+to change columnname:
+
+ALTER TABLE tablename CHANGE COLUMN oldname newname datatype 
+
+
+****************************************************************
+*********************************************************
+
+join in table:
+
+it combine two rows of different tables: like what ever the data row same in two table we use combine:
+
+inner join, left join, right join, full join,
+
+
+innerjoin: common of two table syntax:
+
+SELECT * FROM tablea INNER JOIN tableb ON tablea.colname=tableb.colname;
+
+we will then receive the common row data between these two ;
+
+
+LEFT JOIN:
+
+SELECT * FROM tableA LEFT JOIN tableB ON tableA.colname=tableB.colname;
+
+RIGHT JOIN:
+
+SELECT * FROM tableA JOIN tableB ON tableA.id = tableB.id
+
+
+FULL JOIN :
+
+SELECT * FROM tableA LEFT JOIN tableB ON tableA.id=tableB.id UNION 
+SELECT * from tableA RIGHT JOIN tableB on tableA.id=tableB.id
+
+
+if a join b then all that data ofa wher b is excluded:
+SELECT * FROM student as a LEFT JOIN course as b ON a.id = b.id WHER b.id is NULL;
+
+the opposite of is called right exclusive joint:
+
+****************************************
+self join: 
+a table connect to its own:
+
+SELECT * FROM table as a JOIN table as b ON a.colname=b.colname;
+***********************************************
+
+UNION:
+ should be same data time for this query:
+
+SELECT name FROM employee
+UNION
+SELECT name FROM employee;
+
+
+**************************************
+subqueries:
+
+select,from,where these are three ways to write subquiries:
+
+
+
+SELECT name,marks FROM student WHERE marks>(SELECT AVG(marks) FROM student);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

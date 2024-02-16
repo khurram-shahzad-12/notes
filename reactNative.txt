@@ -1,0 +1,94 @@
+React native complete Course:
+____________________________
+it a framework for develop android and ios apps;
+it's written in javascript and reactjs
+
+_________________
+React Native Documentation Search in Google
+React Native Environment:
+document link is: install from here development Environment setup:
+
+https://reactnative.dev/docs/environment-setup_________________
+
+We will not choose Expo go quick start because you are working on your laptop but view will be seen on your phone that is why we will always use React native Cli QuickStart:
+
+We will select Window and then Android because iOs is only supported by macOS:
+
+when install open powershell run as administrator:
+choco install microsoft-openjdk17
+we will install node, JDK and choco
+install Andriod studio,
+download SKD and emulator,
+add environment vaiables
+create Reave Native App
+Run app
+
+these command should be run on normal powershell with admin access
+
+to check the jdk version command is    ___ java -version
+to check the node version command is  _____ node -version
+
+then need to install android studio simply in documentation where in says install Android Studio below it click on download and install which is bit blue color
+
+open andoid studio:
+click on more aciton:
+click on sdk manager 
+then click on Android SDK from side bar
+click on Android Sdk platform 33 that in inside of Android 13(Tirmaisu);
+and then it's submenu open by click right bottom option
+thne select 
+Intel x86 Atom_64 System Image or Google APIs Intel x86 Atom System Image
+click apply and then install
+continue on documentation:
+now set environment variables:
+as mention on documentation
+https://reactnative.dev/docs/environment-setup
+search for environment variable in window search bar that is next to start button
+
+now create a new environment variable:
+set variable name   ANDROID_HOME
+
+AND SET VALUE:        ====C:\Users\ks677\AppData\Local\Android\Sdk
+
+
+
+now open powertshell:
+ same continue from documentation:
+to check that either environment variable has been set or not:
+Copy and paste Get-ChildItem -Path Env:\ into powershell
+Get-ChildItem -Path Env:\
+if something is coming in response means it is working fine:
+
+
+_______________-
+
+now continue on documentation:https://reactnative.dev/docs/environment-setup
+step 4:
+you again need o set platform-tools to path:
+ again on environment variables:
+before you added inside of user variable now you need to add path: in system varable the bottom option:
+it would be inside of sdk folder
+now in system variables go to path
+click on edit then click on new and add path
+
+C:\Users\ks677\AppData\Local\Android\Sdk\platform-tools
+
+________________________________
+
+now open Android Studio:
+click on more Action:
+click on virtual device manager:
+
+______________________--
+click on start and then click on
+window feature turn on and off
+and then check an option:
+Windows Hypervisor Platform ( this option should be on and checked)
+
+
+_____________________________________
+
+now install react native by documentation command:
+npx react-native@latest init AwesomeProject
+
+

@@ -1,0 +1,268 @@
+bootstrap is a mobile first design library; so whatever you add here that will be first 100 percent width for that browser  means when you say md so md to min width container width will be 100 percent
+
+in vs code install Bootstrap IntelliSense extension:
+this extension provide most possible codes
+
+the easiest way to add bootstrap in your project via link also add js link as well:
+
+2nd way to add bootstrap in your project you simply go to download and download it and then it will create a bootsrap folder in your project then you need to get access bootstrap.min.css file;
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+<link rel="stylesheet" href="./bootstrap/dist/css/bootstrap.css"/>
+
+the above one is the location of that file;
+
+classes______________________________________
+three most important classes that you have to use everytime first one is container then row and then col
+
+
+conatainer layout
+when you make a container you gave break points and when you make it fluid you finish container and width will be 100%
+when you make container then this container got different width on different breakpoints.
+
+the width they mention and bigger then that width 
+when you say its container then it has break points
+
+container fluid width will be 100 percent on all break points width will be full
+container-sm what ever you add here sm md lg that will be minmum set width of the container
+
+break points:
+
+Extra small	None	<576px
+Small	sm	≥576px
+Medium	md	≥768px
+Large	lg	≥992px
+Extra large	xl	≥1200px
+Extra extra large	xxl	≥1400px
+____________________________________
+
+bootstrap grid system:
+firstly you need to make a container then row and after column
+it allow 12 comumns acroos the page,
+class col-1
+col-12
+col-4
+if you want to make more column in a col then first you will add row then again make col with same ratio 1 to 12
+-____________________________________________________--
+
+offset-xxl,offset-xl,offset-lg,offset-md,offset-sm
+
+you give offset-2 property from 1 to 12 to move box if you make it 4 them margin will be 33 percent and box will be in center
+
+___________________________________________________
+order boxer:
+order-xxl-first,order-md-last:order-0 to order-5
+these classes are use to order boxed on different breakfpoints
+order first and last you give to anyone but if you give order from 0 to 5 then you have to define order for everyone otherwise it won't work.
+_____________________________________________
+
+
+margin:
+to keep center of a box inside row: m-auto, mx-auto,
+to keep right ms-auto
+to keep two boxes or one single box at end and gap in center me-auto,
+margin right left top bottom: mr-0-5, ml,mt,mb-0-5
+you also can you rem values from 0 to 5
+
+
+______________________________________________
+padding:
+padding no start from 0 to 5;
+p-0-5, pe,ps,pt,pb
+_________________________________________________
+
+horizental alignment class:
+
+justify-ceontent-center: responsiveness; justifyconten-xxl-center
+justify-content-end
+justify-content-between:
+justify-content-around:
+justify-content-evenly:
+
+
+
+
+________________________________
+vertical alignment class
+
+align-items-start
+align-items-end:
+align-items-center:
+align-items-stretch: to make all different div to equal hight:
+
+align-items-xxl-start:
+
+__________________________________
+
+align content inside a row:
+align-content-start
+align-content-end
+align-content-center
+align-content-between
+align-content-around
+_______________________________________
+to apply vertically alignment on signle div insie of a row:
+
+align-self-start:
+align-self-end:
+align-self-center:
+align-self-stretch:
+________________________________________________
+
+Flex box classes:
+flex box proper apply on row 
+
+flex-row-reverse   to reverse row direction
+flex-column-reverse    to reverse column direction
+flex-wrap              to wrap extra div
+flex-wrap-reverse
+flex-nowrap
+
+_______________________________________________
+display properties:
+
+d-none    means display none
+d-inline
+d-inline-block
+d-block
+d-table
+d-table-cell
+d-table-row
+d-grid
+d-flex
+d-inline-flex
+d-print-none
+d-print-inline
+d-print-inline-block
+d-print-block
+d-print-table
+d-print-table-cell
+d-print-table-row
+d-print-flex
+d-print-inline-flex
+
+________________________________________________________
+
+float: and clearfix :
+
+float-start, float-end,
+_____________________________________________
+position and overflow:
+
+position-relative:
+position-static
+position-fixed
+position-static
+position-absolute
+top, start,bottom,end values are 0, 50%, 100%
+fixed-top, fixed-bottom,sticky-top,
+
+overflow-auto
+overflow-hidden
+overflow-visible
+overflow-scroll
+___________________________________________
+
+color classes:
+
+background classes:
+bg-primary, bg-seconday,bg-success,bg-danger,bg-dark, bg-body,bg-info,bg-warning
+bg-white,bg-transparent,bg-light
+
+we have some grient classes that are linear gradient linear:
+also give opacity classess
+bg-opacity=75%
+same there are  text color properties:
+text-white, text-dark, text-light, text-primary, text-white-50,text-info
+also pass opacity in text
+text-opacity-75%
+
+____________________________________________________
+text alignment classess
+text start
+text end
+text center
+text-lowercase
+text-uppercase
+text-capitalize
+text-wrap
+text-nowrap
+text-break
+_________________________________
+font sizes:
+fs-1, to fs-6 and same you can add rem 1 to 2.5
+____________________________________________
+font weight classess:
+fw-bold, fw-boder,fw-normal,fw-light,
+
+_________________________________________
+line height:
+lh-1, lh-sm,lh-base,lh-lg
+________________________________________
+text-decoration classes:
+text-decoration-underline
+text-decoration-line-through;
+text-decoration-none;
+________________________________________
+heading classes:
+display-1 to display-6 ( same like h1 to h6)
+____________________
+paragraph class:
+
+lead   : ( lead class is same as p (paragraph class))
+_______________________________________________
+to remove dots from list style:
+list-unstyled
+
+list-inline-item
+___________________________________________
+block quote classes:
+blockquote   this class is use for giving quotes
+______________________________
+border classes:
+border,
+border-start,border-end,border-top,border-end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

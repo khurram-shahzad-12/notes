@@ -1,0 +1,15 @@
+link to react google recaptcha:
+https://www.npmjs.com/package/react-google-recaptcha
+_____________________________
+you will get code from above site then you need client site key that you will get from this link:
+https://www.google.com/recaptcha/about/
+
+and then click on____v3Admin Console
+
+select recaptch v2
+and then select _______i am not a robot checkbox"
+add domain two time 
+first add ________localhost
+then add in domain ______127.0.0.1
+
+click submit and then get copy site key: and add in your project

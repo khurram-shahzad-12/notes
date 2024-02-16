@@ -1,0 +1,319 @@
+docker documentation;
+down load docker destop
+link is -----------https://www.docker.com/products/docker-desktop/
+
+important:
+all command of docker in powershell will only be work if docker desktop is open otherwise not:
+
+
+__________________________
+my hub.docker.com  account is ambreenkhurram004 from gmail account
+
+when docker is installed and you installed other thing ubunutu node  mongdb it installed from link
+------------------https://hub.docker.com/
+hub.docker.com it is like github here you can find everything. this is github for container
+________________________---
+
+what is docker:
+actually when you create an application you keep all things that you use in that application, you keep their version in package.json file and when some one else after some time use it, he simply install everything, but the issue is when use host an application or give your application to some one,at that time application enviroment does not store any where suppose in your machine system could be node 16, mongodb 5, but other guy is using node 20, mongodb 6, at that case or other guy is using macOS and you are using window, then there will be an issue to running the app, to resolve that issue we create a local container DOCKer, and run our application inside that container, all your machine related sturff will be inside DOCKER container,
+_________________________________________________
+docker demon is actually docker and docker desktop is actually for visualization;
+open docker desktop run as adminstrator:
+__________________________________________________
+go to cmd prompt for version write
+-----------docker --v
+1> first step to install and run ubuntu
+--------------docker run -it ubuntu
+
+when you run above command it means you are creating new container as well that has ubunut inside of it
+what is image like ubuntu it is an operating system.
+
+
+it will install ubuntu in your local machine go to docker desktop open images and there you will find a new image ubuntu
+
+when you install ubuntu automatically you go inside of ubuntu:
+you can use commands ls cd / 
+
+ctrol+d is the command to come out from ubuntu:
+you create your own images inside of a container, that means you own operating system where you install you own ubuntu, mongodb, nodejs, redis etc and then you can publish it on docker then share that it with your team who can get access from there. and after finishing your project you can host your image on aws or digital ocean.
+
+
+
+to find all the runniner images open new comand prompt and write
+--------------docker container ls and then press enter
+to get all container 
+---------------docker container ls -a and then press enter
+to start the existing container
+----------------docker start containername
+to stop the existing container 
+----------------docker stop containername
+---------------docker exec containername ls
+entering inside a running container
+----------------docker exec -it containername bash
+to find all images inside docker 
+----------------docker images
+________________________________________
+
+
+to install node js
+got to -----------hub.docker.com/_/node
+ther you will find nodejs
+copy command  ---docker pull node
+and paste this command in your powershell
+_________________________
+to check what images are installed in your machine
+docker images
+______________________
+when you install a new image like node like ubunto always it will create a  new container
+_____________________________
+similarly you can installed any image from there 
+__________________________________________
+__________________________________________
+now suppose you are running a container and inside there is a server which is running on port 5000, then if you simple write outside localhost:5000, it won't work because this server is running inside of container so we have to expose it.
+
+there is a term use port mapping that we have to map port from inside contaienr to outside and command is
+-------------docker run -it -p 5000:5000 applicationname
+above command -it stand for interactive and -p stand from port mapping.
+so now server will run on localhost:5000 at outside.
+____________________________________________________
+
+Environment variables:
+if you want to pass any environment variable then this is the command
+
+docker run -it -p 5000:5000 -e key=value -e key=value applicationname
+here e stand from environment variable this is the way to pass environment variables;
+
+______________________________________________________
+
+DOCKERIZE THE NODE JS APPLICATION:
+
+
+so for that purpose when we create an application suppose nodejs we create a docker file inside of it, and inside of that docker file we write our configulation about app, so if some one approach here he can get info about image
+
+inside docker file you add following info:
+file name Dockerfile:
+
+infor:
+
+FROM ubuntu
+
+(note : we can say that ubuntu is the base image so now we need to install nodejs on top of ubuntu so now search any documentation that how to install nodejs on ubuntu:  link is digital ocean one:  https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04)
+
+Docker file:
+content inside is :
+
+FROM ubuntu
+
+RUN apt-get update
+RUN apt-get install -y curl
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
+RUN apt-get upgrade -y
+RUN apt-get install -y nodejs
+
+COPY package.json package.json
+COPY package-lock.json package-lock.json
+COPY server.js server.js
+
+RUN npm install
+
+ENTRYPOINT [ "node", "server.js" ]
+
+________________________________
+now got to visual studio code terminal open powershell and write command:
+------docker build -t appname .
+dot mean file address
+
+____--------------------------------
+now youu will find image in docker destop
+____________________________________________
+
+run command ---docker images   press enter
+you will find the newly make image
+____________________
+to run image ---docker run -it aapname
+and then you can do mapping set port mean
+)))))))))))))))))))))))))
+
+
+FROM ubuntu
+RUN apt-get update
+RUN apt-get install -y curl
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
+RUN apt-get upgrade -y nodejs
+
+COPY package.json package.json
+COPY package-lock.json package-lock.json
+COPY server.js server.js
+
+
+RUN npm install
+
+ENTRYPOINT ['node','server.js']
+
+]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+00000000000000000000000000000000000000000000
+example how to dockerize a nodejs app:
+
+main file: server.js, set in package.json type:"module" and script: node server.js
+
+import express from "express";
+
+const app=express();
+const port =5000;
+
+app.get("/",(req,res)=>{
+    return res.json({message:"hi server is running good"})
+})
+
+app.listen(port,()=>{
+    console.log(`server is listening on port ${port}`)
+})
+
+------------------------------------------
+create one more file name should be
+Dockerfile
+with no extension and add below code:
+in below file you will see we add everything we run it or we copy it or we install it:
+
+FROM ubuntu
+
+RUN apt-get update
+RUN apt-get install -y curl
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
+RUN apt-get upgrade -y
+RUN apt-get install -y nodejs
+
+COPY package.json package.json
+COPY package-lock.json package-lock.json
+COPY server.js server.js
+
+RUN npm install
+
+ENTRYPOINT [ "node", "server.js" ]
+-----------------------------------------------------
+next step:
+ now we will dockerize the app by using simple command in our powershell vs code:
+
+docker build -t applicationname .
+
+on abover command dot (.) mean our Dockerfile location is inside of folder
+then our image will be ready that we can found in our docker desktop and we will find a new image there:
+-----------------------------------------------------------
+
+
+0000000000000000000000000000000000
+to go inside of conatiner that you just containerized
+docker exec -it appname bash----------------------------
+then you will be attatch to particular image:
+ls   press enter
+by using above command you will get list of all files and folder:
+_____________________________________________________
+now if you want to run your app outside of docker you need port mapping for it
+command is :
+docker run -it -p 5000:5000 applicationname
+
+_________________________________________________
+next step how you can publish your image in 
+docker.hub
+it's same like github but bit different to host there:
+_____________________________
+
+simply click on create a repository
+next give repository name:
+click on next:
+on next page you will find a push command like this copy it
+docker push khurramshahzad123/dockerapplication:tagname
+now we need to make an image with this name center part of above command:
+khurramshahzad123/dockerapplication
+
+______________________________________
+
+now go to again vs code and on terminal write command to make image
+docker build -t khurramshahzad123/dockerapplication .
+
+____________________________________________________
+
+open the docker desktop you will find a new image ther with above name
+__________________________________________________
+you can get the image name simple command is ------docker images press enter
+now open powershell and write command 
+---------docker push imagename
+but first it will check that either you are login or not if not it wil ask you credentials
+______________________________________
+docker login command are:
+
+docker login press enter-----------
+username : ambreenkhurram004@gmail.com
+password: bloodyhell575
+
+when you write password it does not seems but it works
+____________________________________________
+
+now command 
+docker images press enter
+choose image;
+and command:
+docker push imagename press enter
+_______________________________________________________
+
+________________________________________________
+if you have differ app to learn like mongodb, postgrs, redis
+then you have to learn more then one container, in that case all container will run on differentj ports,
+
+solution of this problem is docker compose
+you create a file in same app with name:
+docker-compose.yml
+
+inside of this file you can configuration like this:
+
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres # hub.docker.com
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: review
+      POSTGRES_PASSWORD: password
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+_______________________
+in above file top one is its version, you give it, then you add different services like postres, redis .
+image : place where container is getting that image i mean it's location.
+
+_____________________________________________
+if any error coming during installation you can use sudo
+)))))))))))))))))))))))))))))))))))))))))))))))))))
+now it will pull and run these container and map it's port, so that means you have to run all container and images you need it then they will access each other like your app to database or redis
+00000000000000000000000000000000000000000000000000000000
+now inside of a single container redis and postres is running
+)))))))))))))))))))))))))))))))))))))))
+to stop these services:
+docker compose down-----------
+the above command is use to stop or remove everything that you make with above compose command 
+to start run again:
+docker compose up -d
+then these services will start running on background
+
+___________________________________-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

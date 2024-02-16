@@ -1,0 +1,7 @@
+us-east-1
+AKIA3SNMGC5JMW3REJ3U
+Fq2jDc3IpCMOwNtU15qWMI8ZjOHYw2SCtBkoGMZJ
+ database-services-new
+mongodb+srv://pramodhmereddy:YBaiavpi2Mx6JAD@dbscluster1.132s3gt.mongodb.net/data?retryWrites=true&w=majority
+
+170152221967-ppvh4spn65jta1q5bv4r2c7lbdtui3ln.apps.googleusercontent.com

@@ -1,0 +1,26 @@
+import { createTransport } from "nodemailer";
+
+const sendEmail=async(from,subject,text)=>{
+    const transporter=createTransport({
+        service:"gmail",
+        host:"smtp.gmail.com",
+        // port:465,
+        port:587,
+        // secure:true,
+        auth:{
+            user:"ambreenkhurram004@gmail.com",
+            pass:"itba jnlo fber ipoi",
+        }
+    });
+    await transporter.sendMail({
+        to:"khurram002300@gmail.com",
+        from:"khurram@gmail.com",
+        subject:"test",
+        text:"hellow sir"
+
+    })
+}
+export default sendEmail;
+
+
+here the catch is you need to create an app password, go to your email account setting then go to security and then create aap and then get it's password and add here, it's gonna start working properly

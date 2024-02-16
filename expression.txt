@@ -1,0 +1,8 @@
+expression in javascript:
+
+(/\s/g,"")
+/  this mean a new expression is going to start or end
+\s  a special character that is use to remove any white space bcz of tab space bar etc
+/g her / mean new expression is going to start and g mean applies global string 
+here you write '' mean any white space 
+

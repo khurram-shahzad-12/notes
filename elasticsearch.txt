@@ -1,0 +1,826 @@
+elastic search complete notes:
+
+
+elastic stack: 
+the elastic stack is a group of open source products build by elastic:
+elastic search:
+elastic search is an open source full text search engine often use to search functionality to an application;
+kibana:
+kibana is dashboard for elasticsearch for analysing;
+Logstash:
+logstash is a free and opensource data processing pipeline that get data from different source and send it to elastic search;
+x-pack:
+for elasticsearch you need DSL (domain specific language) but with x-pack you can traslate sql query;
+Beats:
+ its a collection of data shippers, these are light weight agent that we install in our server
+
+use chrome elastic header install and use:
+ http://localhost:9200
+_____________________________________________________________________
+when get password and token open file in cmd and use open as administrator:
+
+
+download elastic search in windows:
+
+https://www.elastic.co/downloads/elasticsearch
+
+extract this folder and go to bin there you will find a folder name elasticsearch.bat
+open this file 
+inside this file you will get two thing 
+password and token get and copy these two things
+YmSRBplCe-CdQIaCb4Mw password and username = elastic
+token= eyJ2ZXIiOiI4LjEyLjAiLCJhZHIiOlsiMTkyLjE2OC4xLjEwMzo5MjAwIl0sImZnciI6IjA0YmFjOWQyY2ExNDQ0ZGZkYWRhYWE0ZTZlNGE2YzRjZGJjMWQ1YTY1ZDI1MGEyMmRmOWVjZmE5YjhlZDQ2MDMiLCJrZXkiOiJyT2dkZFkwQmlhWmhWd1VlYkZaazo1clkzNDNXeVFYQ1RpaE1aOGt3eUZ3In0=
+___________________________________
+
+download kibana for windows:
+
+https://www.elastic.co/downloads/kibana
+
+open and extract the folder 
+
+got to bin folder and find file kibana.bat 
+open this file
+you will find a link there like this
+always run as administrator
+
+ http://localhost:5601/?code=739742
+open in new window and add token:
+
+____________________________________
+elastic search when you start a server you say it is a node and collection of two to three node it is called cluster,
+you can make different cluster like one collection or cluster is use to searching and one for analysing;
+you make a cluster and inside of it you create node or server;
+you make different cluster for different purposes example for searching etc
+
+__________________________________
+you store data in json format and automatically some metadata, you json data will go in source object and index, type, id,
+
+keys will start in _  _ 
+
+______________________________________
+document == row 
+fields=== columns
+index==== table name
+
+
+__________________________________________________
+
+go to kibana and click on burger icon three lines:
+now go to management and click on dev tools 
+now console will be open;
+______________________________________
+
+GET _cluster/health
+
+____________________________________________
+
+****************************************
+*****************************************
+now got to command line and run from there
+open cmd
+
+
+curl mean that you want to send a request in command prompt;
+
+curl -X GET https://localhost:9200
+it will given you a certification error:
+we will bypass security check
+command is
+
+
+curl -X GET -k https://localhost:9200
+
+now add credential user name and password
+
+curl -X GET -k -u elastic:YmSRBplCe-CdQIaCb4Mw https://localhost:9200
+
+curl -X GET -k -u elastic:YmSRBplCe-CdQIaCb4Mw https://localhost:9200/_cluster/health
+
+
+now you can add any endpoint
+
+curl -X GET -k -u elastic:YmSRBplCe-CdQIaCb4Mw https://localhost:9200/_cluster/health
+**************************************************
+************************************************
+
+____________________________________
+
+*************************************************
+*****************************
+sharding:
+ we have two much data then we store data in two node, so each node is card shard  and this process is called sharding;
+
+index is same like table or collection name suppose we have two nodes and each nodes is 500gb, now we have two table student 800gb and teacher 100gb then we will index is student and teacher , in this scenerio we wil store student 400gb and teach 50gb on each node
+
+1 shard limit is 2 billion document;
+
+_______________________________________
+
+**************************************
+**********************************
+
+Replication in Elasticsearch:
+
+
+suppose we have a node A which has a index student and if for some reason data destroy to resolve this issue we create a copy of our node it is called replication:
+to copy a shard is called replication:
+primary is called primary shard and copy is called replication shard
+
+replication is always stored in different node so if primary shard is node 1 then it's copy mean replication will be in different node 2;
+ when some one called data and if primary shard is destroy then customer request data will come from other data mean replica:
+
+suppose create an index:
+PUT /fruits
+
+means table created fruits:
+
+to check if it's created:
+
+anywhere we use v it's mean head info
+
+GET /_cat/indices?v
+
+at this command you will find all info about quantity of replica and primary, health yellow mean that replication shard is created but it is not assign to anyone else node:
+
+GET /_cat/shards?v
+
+the above command will show the health of shard and quanity of shard and it's assign info
+
+GET /_cluster/health
+health is yellow here as well
+
+
+_________________________________________
+_____________________________________
+__________________________________
+
+
+create a new index: table
+run both kibana and elastic search
+got to management and then devtools
+and write command there:
+PUT/fruits
+
+your index will be ready
+
+
+---------------------------
+to see all index:
+GET /_cat/indices?v
+
+the index you create its showing it's health yellow because it is created and only one replica shard is created with it but it is still not assigned it means if something happend with primary shard then data will lose so we have to assign the replica to shard
+
+
+command:
+ GET /_cat/shards?v
+by using this command you will find that replica shard is created but they are not assigned:
+suppose if fruits in index then you will find two fruits index there one is primary and one is replica shard but this replica is not assigned:
+
+
+command:
+GET /_cluster/health
+
+by using this command you will find that even cluster health is yellow as well:
+___________________________________________
+now we will learn that how to create one cluster and inside of it may be running two to three instance of elastic search:
+
+now extract a fresh copy of elastic search, and give it node 1 and make another two copy of it:
+give it name node1, node2 and so one node3
+
+now open all these three folder of node1 node2 and node3
+and go to config folder and then click on elasticsearch.yml file:
+
+
+here you will see every thing will be commented then simply go to Node section and uncomment the node.name:node1
+
+if name is not correct the replace it with you folder name and do the same thing with other two folders as well
+
+now we want to create a cluster of it and assign these there instance to one cluster
+
+now go to node1 folder and then go to it's bin folder and run the ealasticsearch.bat file:
+
+{ Password for the elastic user (reset with `bin/elasticsearch-reset-password -u elastic`):
+  W6oLsk3ATStMq=MTn2ap}
+
+and token is {eyJ2ZXIiOiI4LjEyLjAiLCJhZHIiOlsiMTkyLjE2OC4xLjEwMzo5MjAwIl0sImZnciI6IjM0ZTJhYzVkMmZhYzY5YzVhZWM0ZjYzMDgzYzVmZDkzOWRkZGVmMDQ5YmNhZTllN2EyZDBkNDVjZWJjODc5MWQiLCJrZXkiOiJ3WFMtZFkwQm5OVkdLTTYyN0lsMDp4Ym1fTXdlQlNJdVNfT0NqVTRMOS1nIn0=}
+
+now same click on kibana then bin then kibana.bat file and end of this file you will find a link open this link and paste in your browser then add token and ocnfig it
+
+here you will find password and default token to run kibana also default user is elastic;
+
+now copy it's token and run kibana same go to bin and run file
+  here you will find link then go to link
+http://localhost:5601/?code=390863
+
+then configure everything
+
+now add usernmae= elastic and password
+
+now create a cluster and create node inside of a cluster:
+get all cluster node 
+
+
+GET /_cluster/health
+create new index:
+
+PUT /khurram
+
+to get shard info:
+GET /_cat/shards?v
+
+here you will see the replica is not assigned to solve this issue we will start a second node and second node we will assign this replica
+
+here you wil find that cluster health is yellow so now will run a second node:
+
+now go to node1 folder and go to bin folder
+then on searchbar write cmd
+it will open cmd 
+then write the following command:
+
+elasticsearch-create-enrollment-token.bat -s node
+
+the above command will create token to run node copy it 
+eyJ2ZXIiOiI4LjEyLjAiLCJhZHIiOlsiMTkyLjE2OC4xLjEwMzo5MjAwIl0sImZnciI6IjM0ZTJhYzVkMmZhYzY5YzVhZWM0ZjYzMDgzYzVmZDkzOWRkZGVmMDQ5YmNhZTllN2EyZDBkNDVjZWJjODc5MWQiLCJrZXkiOiI0WFRnZFkwQm5OVkdLTTYyd29rNjowOXBwSURUS1FXcV9TZlRjbHRzU3J3In0=
+
+now go to second node2 folder go to bin folder and on search bar write cmd
+on commond prompt write this command when its location on bin folder:
+
+
+elasticsearch.bat --enrollment-token eyJ2ZXIiOiI4LjEyLjAiLCJhZHIiOlsiMTkyLjE2OC4xLjEwMzo5MjAwIl0sImZnciI6IjM0ZTJhYzVkMmZhYzY5YzVhZWM0ZjYzMDgzYzVmZDkzOWRkZGVmMDQ5YmNhZTllN2EyZDBkNDVjZWJjODc5MWQiLCJrZXkiOiI0WFRnZFkwQm5OVkdLTTYyd29rNjowOXBwSURUS1FXcV9TZlRjbHRzU3J3In0=
+
+keep mind that administrator permission system could ask for it:
+
+now got to kabana and run command:
+GET /_cluster/health
+
+now you will see it's status change to green
+
+
+_____________________________
+Role of node:
+master node:
+it light weight cluster wide action, it does create ,delete,track, and which sharde is allocate to which node
+
+go to conf file of node and write ther node.master=true
+also we will add another command here   node.data=false
+it will become master node:
+
+
+data role:
+data nodes hold the shards that contain document :
+node.data=true
+
+ingest:
+node.ingest:true
+to remove or add any field before injecting in index
+
+coordination role:
+if in configuration you don't add any role it will become coordination rol:
+it will route queries to other nodes, it works like load balancer:
+
+
+like normarlly we store data in these shards
+
+# create index
+PUT customers
+
+to delete index;
+DELETE customers
+
+
+to create with a body index:
+PUT student
+{
+"settings":{
+"number_of_shards":1,
+"number_of_replicas":1
+}
+}
+
+
+# insert
+POST customers/_doc
+{
+  "name":"Ram",
+  "age":20
+}
+
+# insert another
+POST customers/_doc
+{
+  "name":"Akshit",
+  "age":25
+}
+
+# search all
+GET customers/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+#update by query
+POST customers/_update_by_query
+{
+  "query": {
+    "match_all": {}
+  },
+  "script": {
+    "source": "ctx._source.age++"
+  }
+}
+
+#delete by query
+POST customers/_delete_by_query
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+
+
+
+some nested queries are :
+
+PUT /books
+{
+  "mappings": {
+    "properties": {
+      "title": {
+        "type": "text"
+      },
+      "authors": {
+        "type": "nested",
+        "properties": {
+          "name": { "type": "text" },
+          "age": { "type": "integer" },
+          "nationality": { "type": "keyword" }
+        }
+      }
+    }
+  }
+}
+
+POST /books/_bulk
+{ "index": {} }
+{ "title": "Book 1", "authors": [ { "name": "Author A", "age": 35, "nationality": "Country X" }, { "name": "Author B", "age": 42, "nationality": "Country Y" } ] }
+{ "index": {} }
+{ "title": "Book 2", "authors": [ { "name": "Author C", "age": 28, "nationality": "Country Z" } ] }
+{ "index": {} }
+{ "title": "Book 3", "authors": [ { "name": "Author A", "age": 29, "nationality": "Country X" }, { "name": "Author D", "age": 50, "nationality": "Country Y" } ] }
+
+
+
+
+GET books/_search
+{
+  "size": 0,
+  "aggs": {
+    "bucket_of_all_authors": {
+      "nested": {
+        "path": "authors"
+      },
+      "aggs": {
+        "AVERAGE_OF_ALL": {
+          "avg": {
+            "field": "authors.age"
+          }
+        }
+      }
+    }
+  }
+}
+
+
+_________________________________________________________
+_____________________________________________________
+______________________________________________
+
+PUT /student
+Delete /student
+
+
+PUT student{
+"settings":{
+	"number_of_shards":2,
+	"number_of_replicas":2
+}
+}
+
+DELETE student
+
+create new index
+
+PUT student
+
+POST student/_doc
+{
+	"name":"khurram",
+	"age":35,
+}
+
+to give id
+POST student/_doc/5245125
+{
+	"name":"khurram",
+	"age":35,
+}
+
+DELETE student/_doc/5245125
+
++++++++++++++++++++++++++++++
+GET student/_search
+{
+	"query":{
+	"match_all":{}
+}
+}
+
+update::::
+POST /student/_update/id{
+	"doc":{
+	"age":5,
+	"newField":"anything "
+}
+};
+
+
+________________________
+POST /student/_update/id
+{
+	"script":{
+	"source":"ctx._source.age"
+}
+}
+
+upsert command is same as update but with condition like if id exist then add this thing example:
+
+POST /student/_update/id
+{
+"script":{
+"source":"ctx._source.age++"
+},
+"upsert":{
+"name":"Rahul",
+"age":25
+}
+}
+
+index,create,update,delete (four action);
+
+index mean when a document is already exist with same id it will update but it case of create action it will give you an error
+
+_____________________________________________
+learn how to update multiple document in a single api call:
+
+POST /customers/_bulk
+{
+"index":{}
+{"name":"age":35}
+{"create":{}}
+{"name":"aslam", "age":30}
+{"update":{"_id":"id that want to change"}}
+{"doc"{"age":31}}
+{"delete":{"_id":"id that want to change"}}
+
+
+}
+
+______________________________________________
+-_______________________________________
+________________________________________
+documnetaiton link is official documentation:
+
+https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/client-connecting.html
+
+
+
+for node js connection ;
+
+
+go to elasticsearch.bat file and open with cmd prompt
+
+
+*******************************************************************
+kabana is like a interface for elasticsearch ;
+you will find a batch file in kabana simply run the file and go to link and add token then it will connected with elasticsearch node;
+********************************************************
+in elastic seach main is node when you start server it's called node and the collection of node is called cluster:
+ data we save in json form and is stored inside of source, and we have key index, id and type;
+
+all keys start from _ underscore
+document stores in source and is same like row 
+field is same like column
+index is same like table
+
+
+to get data:
+GET _cluster/health
+
+get is method and cluster will show the cluster:
+
+GET _cat/nodes?v
+means all info about nodes: and v mean head
+
+GET _cat/indices?v
+
+
+*************************************************************************
+*************************************************************************
+DSL = DOMAIN SPECIFIC LANGUAGE;
+Match query
+Match phrase query
+Match phrase prefix query
+Multi match query
+
+
+
+
+{
+"query":{
+"match_phrase":{
+"comments":{
+"query":"brown dog",
+"stop":3
+}
+}
+}
+}
+***********************************************
+************************************************
+compare to relational database:
+
+elastic search has json structure:
+document is same row in relational database
+type is like table type mean doc like kind of data
+when type is doc it's mean single doc but when it alot we add field nested:
+wheen it is integer mean  no when type is text it's mean string
+index is same like table name
+cluster is collection of node
+node is like a server and it has univer id
+
+node is a collecitons of shards
+replica is a copy of a shards in case if one shards collapse then we have a copy of it
+shards will be distributed in different nodes by default;
+
+mapping:
+map is a way to defined that how a document and it's field is stored in index
+properties:
+inside of our mapping we define our doc
+and there we add our properties
+and inside of that properties we add our data
+suppose 
+all in json format:
+mappings:{
+doc:{
+dynamic:stricket,
+properties:{
+employid:{
+type:integer
+},
+employname:{
+type:text,
+field:{
+type:keyword:{
+type:keyword
+}
+}
+}
+}
+}
+}
+here you add data and fields if you want to add some extra stuff about data like keyword
+****************************
+
+
+*****************************************
+Elasticsearch API:
+
+document API:
+it is used to update a document ina a specific index;
+
+example :  POST employee-details/doc/545
+
+here tablename/type of data/id
+
+{
+id:5256,
+name:khurram,
+age:22,
+addreses:[{addresid:222,"addresnam:khurrm}]
+};
+mena nested field you can pass in array:
+Search API
+Indices API:
+it is use to creattion or deltetion of a index
+cat API
+Cluster API
+
+
+Multi document Apis
+
+Multi get api
+bulk api
+delte by query api
+update by query api
+update by query api
+reindix api
+
+
+GET employee-details/doc/_search
+
+here employee-details== table name
+_search     mean you ae searching its default
+doc mean searching document you can ignore it 
+
+*******************************************
+***********************************
+to********************************************
+***********************************
+to create a new cluster download alwasy fresh copy of it :
+and then go to bin and then go to elasticsearch.bat file run it after some time you will find password from her user is always elastic;
+
+one more thing when ever you use in nodejs you always have to run it first time:
+
+
+
+
+const { Client } = require('@elastic/elasticsearch')
+
+const client = new Client({
+    node: 'https://localhost:9200',
+    auth: {
+        username: 'elastic',
+        password: '6gLwn-djsSFMgP=8KKbg'
+    },
+    tls: {
+        // ca: fs.readFileSync('./http_ca.crt'),
+        rejectUnauthorized: false
+      }
+});
+
+
+
+
+const elasticIndex=async(req,res)=>{
+    try {
+        
+        const result=await client.indices.create({index:"khuram"})
+        console.log(result);
+        res.status(200).json({
+            success:true,
+        })
+        
+    } catch (error) {
+        console.log(error)
+        
+    }
+};
+
+
+const senddata=async(req,res)=>{
+    try {
+        const result=await client.index({
+            index: 'my_index',
+            id: 'my_documentt_id',
+            document: {
+              foo: 'foo',
+              bar: 'bar',
+            }
+
+          });
+          res.status(200).json({
+            success:true,
+            result
+          })
+        
+    } catch (error) {
+        console.log(error)
+    }
+};
+
+const getdata=async(req,res)=>{
+    try {
+        const result=await client.get({
+            index: 'my_index',
+            id: 'my_documentt_id',
+          });
+          res.status(200).json({
+            success:true,
+            result,
+          })
+        
+    } catch (error) {
+        console.log(error)
+        
+    }
+};
+
+
+const searchdata=async(req,res)=>{
+    try {
+        const result=await client.search({
+            query: {
+              match: {
+                foo: 'foo'
+              }
+            }
+          })
+        res.status(200).json({
+            success:true,
+            result
+        })
+    } catch (error) {
+        console.log(error)
+        
+    }
+};
+
+
+const updatedata=async(req,res)=>{
+    try {
+        const result=await client.update({
+            index: 'my_index',
+            id: 'my_document_id',
+            doc: {
+              foo: 'bar',
+              new_field: 'new value'
+            }
+          });
+          res.status(200).json({
+            success:true,
+            result
+          })
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const deletedocument=async(req,res)=>{
+    try {
+        const result=await client.delete({
+            index: 'my_index',
+            id: 'my_document_id',
+          })
+        res.status(200).json({
+            success:true,
+            result,
+        })
+        
+    } catch (error) {
+        console.log(error)
+        
+    }
+};
+
+const delteindex=async(req,res)=>{
+    try {
+        const result=await client.indices.delete({ index: 'khurram' })
+        res.status(200).json({
+            success:true,
+            result
+        })
+        
+    } catch (error) {
+        console.log
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

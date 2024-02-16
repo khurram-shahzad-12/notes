@@ -1,0 +1,92 @@
+git init
+git add .
+git commit -m "initial commit"
+git remote -v  ---------to check remote
+git branch   -----------to check branch
+git branch -M main -----to rename branch
+git push -u origin main
+
+
+
+
+to move one branch to another branch
+git checkout branchname
+
+
+to create new branch:
+git checkout -b branchname  ------------to create new branch
+
+
+to remove a branch:
+go to other branch main branch then remove branch:
+
+git checkout branchname
+
+git branch -d branchname
+
+
+
+to push data in branch:
+git push origin branchname:
+
+
+
+to merge main and branch:
+
+to check the difference between main and newly created branch:
+suppose you are a newly created branch and you want to compare it with main
+
+git diff main
+
+now you will see defference there
+
+now to merge this newly created branch with main:
+
+and you are in newlycreated branch add this command
+
+git merge main
+
+so it will merge with main:
+________________________
+
+
+
+to undo cases:
+if you just added but not commit it:
+
+git reset filename
+
+or git reset
+
+
+if you commit as well:then:
+
+git reset HEAD~1   (IT IS BY DEFAULT head~1) that mean you are going one commit back
+
+
+_____________
+to check all your commit:
+git log
+
+to quit from her press q
+
+_____________
+to undo multiple commit we node hash of particular commit
+
+git log
+and then the commit you want to go copy it commit yellow mark code
+then command:
+git reset hascode (hashcode mean the yellow mark code)
+
+______________________
+now changes from github gone and now we are back to last commit:
+
+_____________________--
+__________________
+now we want to make all changes undo from our vs code:
+git status 
+git reset --hard hashcode (yellow mark code that you find from log)
+
+***************************
+to check the origin of your github 
+git remote -v

@@ -1,0 +1,287 @@
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-constant-score-query.html
+
+the above one is documentation link*******************
+
+
+
+
+
+
+
+********************************
+
+this is from official documention so if need any reference or explation you can find link here
+
+https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/msearch_examples.html
+
+QUERY***************************
+what ever the query you see inside of query context it means answer the question, query inisde whatever the matching document it return it sort them according to their score
+means when you make a search and get some matching document it assign a score each docuemnt and then sort them according to it's score and save the score in metada _score, the score is a floating number
+
+
+FILTER**************************
+filter context is more relavent to yes or not, means when you make a search inside of a filter context, it simply check either it match or not, no score caluculated
+
+
+
+bulk:********************** 
+mean you are doing operation in bulk
+ its a mechanism to efficeintly indexing or updating document in a single request:
+
+
+match**************************
+match query mean that it is gonna make a analyzing search, if i document partial match, it's gonna assign a scoring to it,
+
+
+term**************************
+term query mean exact match, if a query is need to be exctly match, we use term query, it is case sensitive, it do exact matching and no analyzing or partial matching.
+
+range*******************
+this query means that we are going to set a date in our query like gte or lte etc.
+
+GET /_search
+{
+  "query": {
+    "function_score": {
+      "query": { "match_all": {} },
+      "boost": "5",
+      "random_score": {}, 
+      "boost_mode": "multiply"
+    }
+  }
+}
+
+mapping: ************************************
+it means that you are define the structure of your index like what possible field cound be inside , once you defined you don't need to defined on everyrequest.
+
+async function run () {
+  await client.indices.create({
+    index: 'tweets',
+    operations: {
+      mappings: {
+        properties: {
+          id: { type: 'integer' },
+          text: { type: 'text' },
+          user: { type: 'keyword' },
+          time: { type: 'date' }
+        }
+      }
+    }
+  }, { ignore: [400] })
+
+  const dataset = [{
+    id: 1,
+    text: 'If I fall, don\'t bring me back.',
+    user: 'jon',
+    date: new Date()
+  }, {
+    id: 2,
+    text: 'Winter is coming',
+    user: 'ned',
+    date: new Date()
+  }, {
+    id: 3,
+    text: 'A Lannister always pays his debts.',
+    user: 'tyrion',
+    date: new Date()
+  }, {
+    id: 4,
+    text: 'I am the blood of the dragon.',
+    user: 'daenerys',
+    date: new Date()
+  }, {
+    id: 5, // change this value to a string to see the bulk response with errors
+    text: 'A girl is Arya Stark of Winterfell. And I\'m going home.',
+    user: 'arya',
+    date: new Date()
+  }];
+
+
+
+exists =*******************************
+this methods check that either document exist inside index or not.
+
+
+get ******************************
+is use to get a document on base of this id;
+
+
+ignore************************
+means ignore some code actually when you do bulk operation and instead of array you send each docu with index the you have to passe this parameter
+you do multiple searchers in single array 
+
+ const result = await client.msearch({
+    searches: [
+      { index: 'game-of-thrones' },
+      { query: { match: { character: 'Daenerys' } } },
+
+      { index: 'game-of-thrones' },
+      { query: { match: { character: 'Tyrion' } } }
+    ]
+  })
+
+
+scroll*********************
+to get a large amount of data , you can use futher query like search, filter inside of it , it will give a scroll id that you can use to vet futher response
+
+search*******************
+the search api allow you to help docuemnt;
+
+transport.request:******************
+in case if elasticsearch does not supprt you then you can use this command to directly connect with elasticsearch;
+
+
+refresh=true:*****************
+when you want then what ever the changes you make should be live immediately you set this parameter bcz it's immediately update the whole code on live.
+
+********************************************************
+
+DSL*************DOMAIN SPECIFIC LANGUAGE**************************************************
+
+LEAF QUERY CLASSES its mean that these queries can be used by themselves like match ,term and "range"; match query range
+
+
+COMPOUND QUERY CLASSES, it means that these queries are use to wrap the order above queries these queriesexample are bool, dis_max and constant_score
+
+query*************************
+query context give answer the question how much document match with the query clause.
+
+score**************************
+when elasticsearch query a document it does not says that match or not it gives score to it that how much it relevence or not
+
+filter********************
+filter is a constant score query means it simply says either match or not it usually passed inside bool, it is ually pass as filter or must
+
+must:**************same like filter
+
+
+  "query": { 
+    "bool": { 
+      "must": [
+        { "match": { "title":   "Search"        }},
+        { "match": { "content": "Elasticsearch" }}
+      ],
+      "filter": [ 
+        { "term":  { "status": "published" }},
+        { "range": { "publish_date": { "gte": "2015-01-01" }}}
+      ]
+    }
+  }
+}
+
+
+COMPOUND QUERIES*****************************
+these queries use to wrap othe queries and wrap their result 
+
+BOOL*************************
+use to wrap queries like must,must_not, filter , should
+in this bool query we pass multiple queries and it match the score from all matching queries
+it is added score of all matching queris add them and then assign the reurn document
+dis_max*****************
+this query is same like bool query it also can be pass multiple queries but it matches the score with only best matching query clasue, means which one is matching best query clause
+
+BOOSTING QUERY*****************************
+it return document with positive score when you set this query you set a negative boost value that means you don't want this thing in search and value from 0 to 1;
+
+constant_score_query**************************
+a query that wrap other queries and it's matched document will have constant score, it's like filter bcz the out put has no assign score
+
+function_score**************************
+it modify the score that is return by the main query to modify or categorize in popularity, recency, distance, etc, means if you need to re arrange the different docuemnt you pass you own score there then these all docuemnt will be rearrange according to this score
+
+*****************************
+**********************************
+******************************
+********QUERIES THAT YOU CAN PASS IN BOOL*******************************
+
+must*****************
+it will must match and contribute into score, and elasticsearch assign a score
+
+filter*****************
+it will return but not score i mean ready to return
+
+shoudl*********************
+this should be in the matching documents
+
+must_not*****************
+this query must not return and immediate return no scoring
+
+
+
+******************************
+********************************
+************************************
+
+BOOSTING QUERY****************
+
+you pass both positive and negative query inside boosting and give a negative boost value that is between 0 to 1, it mean positive mean that you are search for this and negative for this don't want this and set negative boost to negative score level example:
+
+{
+  "query": {
+    "boosting": {
+      "positive": {
+        "term": {
+          "text": "apple"
+        }
+      },
+      "negative": {
+        "term": {
+          "text": "pie tart fruit crumble tree"
+        }
+      },
+      "negative_boost": 0.5
+    }
+  }
+}
+*****************************************************************
+
+
+
+constant score query************
+it means that you want all result with particular boost score and you use filter query inside of it example; and the nyou find all result with particular boost score that is constant:::
+
+
+GET /_search
+{
+  "query": {
+    "constant_score": {
+      "filter": {
+        "term": { "user.id": "kimchy" }
+      },
+      "boost": 1.2
+    }
+  }
+}
+
+********************************************************************
+Disjection max query**********************
+return documents match with one ore more wrapped queries, if return document match with the different queries then it assign the score of any hight score query that is gonna match
+
+
+
+***********************************************************************
+
+function score query*********************
+
+
+the function core query allow you to modify the score of function that is retrieve by the query
+
+GET /_search
+{
+  "query": {
+    "function_score": {
+      "query": { "match_all": {} },
+      "boost": "5",
+      "random_score": {}, 
+      "boost_mode": "multiply"
+    }
+  }
+}
+
+
+****************************************************************************
+***********************************************************
+
+FULL TEXT QUERIES*********************
+it's enable you to search the body of text

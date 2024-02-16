@@ -1,0 +1,96 @@
+HTML=hyper text mark up language;
+
+to write html code in vs code write (! press enter)
+html is language of web and it is use to create websites;
+We use html tags to difine and feel a website;
+html is use to define layout ofa page while css use to add design while javascript add functionality
+
+A basic html page:
+<html/>,<head/>,<body/>;
+head and body tages are children of html tag;
+some of the html tage has no context they are called the empty tags like <br/>
+
+Comment in html:
+comment in html are use to mark text which should not be passed in our website;
+
+html is a case sensitive language:
+<body> content </body>;
+
+html attributes:
+use to add more information in html tags example 
+<a href="https://www.local.com"></a>
+
+url=uniform resource locator
+
+TAGS:
+heading tage are use to add heading in html from h1 to h6;
+paragraph use to add paragraph <p/>
+anchor tag is use to add links <a/>
+img tag is use to add image <img/>;
+
+<video src="" controls poster width/>
+
+iframe tag you use to play youtube videos in your website simple copy iframe tag andthen paste in your website it will start working automatically;
+
+if you add address of you website then you can see whole website in a small fram;
+
+
+<img src="" alt-""/>
+<b/> <i/> <u/> bold italian and underline tag:
+
+br tag is use to add breaks <br/> line break new line:
+
+hr tag is use to create an horizontal line <hr/>;
+subscript tag <sub/> and <sup/> write in power and write in under of:Co2 and 2raise power 3;
+div tag is a container for other elements as a block level element;
+span tag is an inline container:
+unorder list tag is use to create a list without number but it still got dot or other design but just not numbering <ul/> and li is a sub tag of a list <li/>
+
+order list is a tage that use to create a list with an order number like 1 2 3 etc <ol> and <li > is a sub tag of a list;
+
+
+table tag is used to define a tabel in html <table>;
+<tr rowspan="2"/> is use to display row in an table;
+rowspan=2 use to combine two rows
+colspan is use to combine two columns
+<td/> is use to display table data
+<th/> is use to display table heading in a table;
+<thead/> is use to wrap table head like heading;
+<tbody/> use to wrap table body like rows and data 
+<tfoot/> use to wrap footer of the table like total= etc
+ 
+html form:
+<form/>  an html form is used to collect input from a user; input tag, select tag;
+
+<input type="text" name="fname"/>
+<input type=password/>
+<input type=checkbox/>
+male<input type=radio name="gender " id=""/>female< input type="radio" name="gender" id=""/>
+<input type=file/>
+<input type=submit/>
+<input type="reset"/>
+<input type="image"/>
+<input type="email" name="email" id="email"/>
+
+<textarea col="" row=""/>
+<select/> inside you always need to give different options <option />
+
+<video/> is use to display video and its attribute in width tag
+----------------------------------------------------------
+page layout
+-----------------------------------------------------
+<header> contain navigation tag;
+<main/> website layout:
+<section/>:
+<aside/>;
+<footer/>
+_________________________________________________________________--
+
+seo of a website from just html point of view:
+<meta name-="", content=""/>;
+
+
+
+
+
+

@@ -1,0 +1,341 @@
+React js complete notes;
+
+https://www.youtube.com/watch?v=eILUmCJhl64
+good video tutorial on react
+
+react is just a library while vue.js and angular are complete framework, it means that react is only made for ui, so you need other libraries like react-roueter-dom and redux, while angular give solution for everything;
+
+react js is a javascript library that you to build dynamic website, react is build be facebook; build in 2011; it is a single page application;
+
+DOM:
+when browser going to load the page, it is simply first get html css and javascript files than make a tree of it, it is called dom
+
+create a react project with vite
+ 
+https://vitejs.dev/guide/
+
+jsx mean javascript xml file
+
+___________________________________________________
+
+react-router-dom documentation for routing:
+
+https://reactrouter.com/en/main/start/tutorial
+you can also find errorhandling page and loader at the same page.
+______________________________________________________________------
+npm create vite@latest
+__________________________________________________________________
+
+dev depenedcies are those libraries which we only need to help write code and when all code is done we don't need them in deployment
+_____________________________________________________________
+
+inline css adding in react:
+ style={{background-color:"blue"}}
+or
+external css;
+you can directly import css file
+______________________________________________________________________
+you use className in react but not class
+_________________________________________
+in react whenever you use map function you need to pass a uneque key and it's important
+___________________________________________________________
+a=0?b:c
+a===falsy value&&b  
+
+falsy value: 0 false null undefined 
+_________________________________________________________
+
+Props:
+the way that you pass variables in react:
+________________________________________________
+Props.children:
+
+if you want to add something like design more element to a component, you can add as a children: example:
+
+container page:
+import React from 'react'
+
+const Container = (Props) => {
+  return (
+    <div>Container
+        <p>my name is khurram shahzad</p>
+        {Props.children}
+    </div>
+  )
+}
+
+export default Container;
+
+
+Home page:
+import React from 'react'
+import { Outlet } from 'react-router-dom'
+import Container from './Container'
+
+const Home = () => {
+  return (
+    <Container>Home
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis quibusdam enim doloribus earum excepturi modi molestiae dicta unde neque animi.</p>
+        <Outlet/>
+
+        
+    </Container>
+    
+  )
+}
+
+export default Home
+________________________________________________________________________
+onKeyDown:
+event.target.value:
+event.key
+
+______________________________________________________________________________
+
+on map function when you difine a function in react at same time of mapping you can add function at same time and here you can pass both event and item
+
+______________________________________________________
+
+React.strictMode:
+ actually this mode only use in development purpose and ignore in production mode, it helps to identify mistake on developement time like key ,state error:
+
+Dom vs React Dom:
+Dom is actually proper dom document object model but react dom means a dom that react makes, it build be react components like app, but later it converted to actuall dom that is html elements:
+
+you actually find two things in react dependencies, first one is react, all code that we write is in react, but reacDom actually convert that code to react dom for browser, 
+
+same if we write some code for ios then instead of react dom we will use dependencies is called reactNative, so in this case ReactNative convert that code to DOM for browser.
+
+so actually these libraries like ReactDom and ReactNative convert the react code for browser for specific use.
+
+root element:
+the root div act like a container for the react app:
+
+
+
+_______________________________________________________
+State:
+
+to save variable value, when component state change then function will re render:
+it's a small place to save variable value:
+_______________________________________________________-
+useRef:
+const refvariable=useRef(0);
+
+useRef is similar to useState Hook, the difference between these two is, when value change useState re render the whole component, but useRef does not re render the component on change it's value:
+
+you can access to it's value by .current:
+
+
+refvariable.current+=1
+
+by using above function it's current or initial value was 0 and on each click value increase by 1 but whole component will not render;
+
+it's use it on form when you write something in input it render on every change but by using useRef hook you make a ref, and on time of submission you just get it's current value:
+_____________________________________________________
+
+Context Api:
+_______________________________________________________
+common shared storage among all the components:
+createContext, useContext
+
+main.jsx
+import * as React from "react";
+import * as ReactDOM from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import "./index.css";
+import Home from "./Home";
+import App from "./App";
+import { todocontext } from "./Contextprovider";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home/>
+  },
+  {path:"/about", element:<App/>}
+]);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+
+  <todocontext.Provider value={[]}>
+    <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+ </todocontext.Provider>
+  
+);
+-----------------
+contextprovider.jsx
+import {createContext} from "react"
+
+export const todocontext=createContext([]);
+-------------------------------
+Home.jsx
+
+import React from 'react'
+import { Outlet } from 'react-router-dom'
+import Container from './Container'
+import { todocontext } from './Contextprovider';
+import { useContext } from 'react';
+
+
+
+const Home = () => {
+  const todoitem=useContext(todocontext)
+  console.log(todoitem)
+  return (
+    <Container>Home
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis quibusdam enim doloribus earum excepturi modi molestiae dicta unde neque animi.</p>
+        <Outlet/>
+
+        
+    </Container>
+    
+  )
+}
+
+export default Home
+
+divadvantage of create context is whenever state is update whole app will be render
+
+__________________________________________________________
+
+
+useReducer:
+_______________________________________________________________--
+it has more control on useState, like an advance version of useState; if there is complex state logic;
+
+it has two component: action and second one is reducer:
+it use to make small changes:
+action is what you want to change 
+it will only check what changed:
+
+when something need to changed components will dispatch a action then action wil go to reducer and reducer will update it's state onbelf of that compoentns will render , example:
+Home.jsx
+import React,{useReducer,useState} from 'react'
+import { Outlet } from 'react-router-dom'
+import Container from './Container'
+import { todocontext } from './Contextprovider';
+import { useContext } from 'react';
+import {TodoReducer} from './TodoReducer';
+
+
+
+const Home = () => {
+  const todoitem=useContext(todocontext);
+
+  const [newtodoitem,dispatchitem]=useReducer(TodoReducer,[]);
+  console.log(newtodoitem)
+
+  const addreduceritem=()=>{
+    const newitemaction={
+      type:"NEW_ITEM",
+      payload:{
+        itemname:"khurram",
+        itemage:36,
+      }
+    };
+    dispatchitem(newitemaction)
+  }
+  console.log(todoitem)
+  return (
+    <Container>Home
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis quibusdam enim doloribus earum excepturi modi molestiae dicta unde neque animi.</p>
+        <Outlet/>
+
+        <button onClick={addreduceritem}>add item for reducer</button>
+
+        
+    </Container>
+    
+  )
+}
+
+export default Home
+
+
+Todoreducer.jsx:
+
+import React from 'react'
+
+export const TodoReducer = (currenttodoitem,action) => {
+    let newtodoitem=currenttodoitem
+
+    if(action.type==="NEW_ITEM"){
+
+        newtodoitem=[
+            ...currenttodoitem,
+            {name:action.payload.itemname, age:action.payload.itemage}
+        ]
+
+    }else if(action.type==="DELETE_ITEM"){
+
+    }
+  return newtodoitem
+}
+________________Properly organize Code use reducer________________________
+
+you can directly call action by (dispatchitem) instead of addreduceraction and call it any where:
+
+
+
+
+_______________________________________________________
+
+USE callback hook
+________________________________________________________
+when a parent state state and it is printed then it's child will be reprint again:
+
+useCallback help us to stop reprint the child component by remeber memoization:
+
+suppose:
+const deletepost=useCallback(()=>{
+console.log("deleted post")
+},[]);
+
+_______________________________________________________________________
+
+useMemo Hook
+____________________________________________________________________
+
+use memo keep the result in memory and will only render if object make changes:
+
+const arr=[6,96,2,6,523,63];
+
+const sortArray=(useMemo()=>arr.sort(),arr);
+
+if array is somewher in dependencies then it will only run if arr value change otherwise it will pass the value from useMemo:
+
+_______________________________________________________________________
+
+custom hook
+_______________________________________________________
+if you want to share common logic then you create hook:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

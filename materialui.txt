@@ -1,0 +1,91 @@
+material ui complete course:
+
+on function it work like this : event.currentTarget
+
+to write your custome css
+sx={{backgroundColor:"red"}}
+_________________________________
+breakpoints: xs, sm , md lg,xl 
+in below example always good practice to start in side a Box components then the element property you want to make it responsive just add inside of a {} inside curly braces, and then can easily give values
+
+you can change any component by using coponent property simply add it 
+component="h1"
+like this any component will convert and then usually you give variant for any component varient:"h4"
+
+for graph you take a typography and then add all things inside of it
+_________________________________________________________________
+
+
+<Box sx={{ width: { sm: 100, md: 400, lg: 600, xl: "90vw" }, backgroundColor: "yellow", my: "auto", mx: "auto", textAlign: "center", padding: "20px" }}>
+                Loremg elit. Dolores ut ratione fugit obcaecati perspiciatis rerum.
+            </Box>
+
+breakpoint value: 0, 600,900,1200,1500
+suppose width:{xs:400,lg:500}
+
+______________________________________
+margin properties: mt
+
+___________________________________
+Box:
+ use like a wrapper it's a simple div:
+
+if there is other componet like paper, card you can change them by simply add component={Box} then you can add further css
+
+____________________________________
+Typography:
+variant="h1,h2 to h6, body1,body2,subtitle1,subtitle2"
+you can use align property to align text
+align="center"or "left", right"
+_______________________________________________
+container:
+you wrap everything inside container for responsive website
+maxWidth="sm"
+if you to center heading or paragraph by using maxwidth property
+
+____________________________________________
+paper component: similar to card component elevation to add shadow
+
+_____________________________________________
+
+color:
+go to color then you can add color and even change your primary color as well
+________________________________________________
+icons:
+ material icons
+__________________________________________
+button:
+variant: outlined,contained
+fullwidth size: "large"
+__________________________________________
+mui Grid:
+grid you can apply breakpoint simply md={4},lg={6} value from 1 to 12 sm
+
+_____________________________-
+card
+________________________
+textfield mean input elements
+when component to form it will become a form
+
+_____________________________________________________
+
+Menu:
+you can add menu item inside of app bar
+
+_____________________________________________________________________-
+
+Responsive Design:
+
+__________________GRID__________________________________
+
+to make different sizes of responsive box use Grid in mui. Inside grid you add two option one is item and 2nd one is container, container is main grid and item is its child grid when you need to make responsive you give value for child grid it's one to tweleve,
+spacing is use to give padding
+while gap is use to give margin 
+
+
+
+
+
+
+
+

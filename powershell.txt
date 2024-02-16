@@ -1,0 +1,8 @@
+to create a folder;
+--   mkdir foldername press enter:
+to clear screen 
+-- cls press enter;
+to enter inside of a folder
+-- cd foldername press enter
+to enter with vs-code; 
+code. press enter;

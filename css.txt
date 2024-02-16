@@ -1,0 +1,278 @@
+CSS COMPLETE NOTES:
+grid responsive property
+
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+
+if you have any question about any style you simply open mdn reference of that style:
+
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color
+
+css stand for cascading style sheet, it use to design a website.it help to make a static html page to a responsive website.
+
+DOM stand for document object model, when a page is loaded then browser create of DOM  of the page which is constructed as a tree of objects.
+
+when an element of html is given an id, it is alwasy unque , it is serve as a unique identifer of that html element and when you give a class to a html element, you can give the same class to other html elements;
+
+
+three ways to add css to html:
+inline style will override external and internal css styles;
+inline css=> style=""
+<style>...</style>,(you just write these style tag and add css inside of it) and this is called internal css
+internal css, external css( when you add a file vs link to html head)
+<link> rel="stylesheet" href="style.css"</link> ;
+ h2{color:blue} h2 is called element while "color " is property and "blue " is value;
+
+----------------------------------
+to describe different sizes in css we have different unit:
+px, rem, vw,vh,em;
+
+px are relative to viewing device: 1920, 1080, 
+em is relative to parents font;
+rem is relavtive to root font;
+vw is percentage to view width;
+vh is percentage to view height;
+% is relavtive to parent element;
+
+
+min width and height property will be applied when the content is smaller then min height:
+-------------------------------
+if two div have equal margin then they will share same margin and if one has bigger then smallest margin will be ignore suppose if both has 30px then between margin will be 30px not 60px
+
+----------------------------------
+you can select an element with given id or class name:
+
+how to use css:
+
+* can be use as a universal selector to select all elements:
+h1,h2,div{}
+to select inside one another like this
+div .para{},
+#para{}
+
+types of color values:
+RGB= (red, green, blue)(20,635,699);
+HEX color= specify color using hex code eg=#ff336565;
+HSL= (252%,36%,69%); hue saturation and lightness
+
+.color{background-color:white};
+.body{background-image:url("http://www.image.com")};
+background properties: no-repeat,
+cover: cover the all space,
+contain:fit and image is fully visible;
+auto: display the original size;
+width:set width and height automatically;
+
+-----background-position property: left top;
+-----background-attachment:fixed;
+-----background: red url("img.com") no-repeat fixed right top;
+
+
+---------------------------------
+CSS BOX MODEL:
+ the outside layer is called margin then border and inside border layer is called padding and inside padding is called content:
+.box{margin: 7px 5px 5px 3px} top, right , bottom , left;
+also set individual like this:
+margin-top:50px, margin-bottom:65px 
+
+-------------------------------------
+
+border:{border-width:2px, border-style:solid, border-color:red, border-radius:2px};
+-----------------------------------------
+box sizing: border-box;
+
+by default it is box-sizing=content-box, it mean if you set height and width 20px then add border 1px padding 2px  they will add on above of 20px.
+ when we set box-sizing to border-box then any thing which in inside of border is included the width of box; 
+
+------------------------------------------
+DISPLAY PROPERTY:
+display property is use to determine whether an element is treated as an inline or block element for its children
+
+------display: inline:
+takes only the space as much as it is requred by the element;
+------display: inline-block:
+takes the full width available a new line before and after the element;
+------display: inline-block:
+it is quite similar to inline but later you can adjust it's width and height;
+------display: none or visible or hidden:
+when display is none it's mean that element is removed from the document;
+when display is visible it means that element is hidden but it's space is reserved;
+
+--------------------------------------
+test-align: center,
+text-decoration: none, line-through, underline,
+text-transform:upercase,
+line-height: 0.7,
+text-shadow:3px 2px 2px black
+
+------------------------------------------------
+font-family:"monospace",
+font-size: 
+font-varient:
+font-weight:
+you can add different google font by simple go to google font, choose from there and add them;
+-------------------------------------------------
+
+position property:
+static: the default position, top/left/z-index will not take any effect;
+relative:now you can use other properties like top/left/bottom z-index;
+absolute: element will be removed from the flow and it's position will be top/left; bottom, etc;
+fixed: just like absolute remove from the flow and element position will be browser window;
+sticky: element position based on user scroll position;
+--------------------------------------
+list-style-property: squre inside url()
+---------------------------------------
+z-index property:
+this property use to specify the stack order of a element
+------------------------------------------------
+float property:
+float poperty simplly float the elemet to left or right side
+
+flow:left,
+overflow:hidden,
+usually use in navbar in link a tag
+-------------------------
+clear property:
+it clears the float property it is specified which element to float besides the given element;
+-------------------------------------
+---------------------------------------------------------------------------
+CSS FLEX BOX:
+
+vertically items convert to horizental
+vertically centering a block of content
+we always apply flex property to main container  after apply the main container is called flex container and inside div are called flex items
+
+flex congtainer properties:
+display:flex,
+flex-direction: row, column, row-reverse,column-reverse,
+flex-wrap: no-wrap, wrap-reverse,
+justify-content:center, space-around, space-between
+align-content:center,
+align-items:center,
+
+FLEX-ITEM-PROPERTIES:
+align-self: stretch, baseline
+flex-basis:200px   it's same like max-width:
+order:
+flex-grow:2   it will grow only rapidly
+flex-shrink:
+
+_________________________________________________________________________
+_________________________________________________________________________
+CSS GRID
+_________________________________________________________________________
+css grid is a two way layout and flex box is a one way layout
+
+grid-template-columns:repeat(auto-fill,minmax(200px,1fr))
+
+display: grid,
+it applies on main container and then direct children becomes grid items;
+grid-column-gap:
+grid-row-gap:
+grid-gap:20px
+grid-auto-rows:minmax(100px, auto )
+
+grid-template-column: repeat(4, 1fr)
+grid-row-column:
+justify-content:
+align-content:
+row-gap:
+column-gap:
+
+GRID-ITEM-PROPERTIES:
+grid-column-start:2
+grid-column-end:4
+
+________________________________________________________________________________
+css media queries:
+_______________________________________________________________
+@media only screen and (max-width:800px){background-color:red}
+
+768px, 1024px 1920px
+
+@ media only screen and (max-width:700px) and (orientation: landscape){}
+
+@media not all and(orientation:landscape){}
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------
+TRANSFORM, TRANSITION AND ANIMATION PROPERTIES
+
+transform property use to move,rotate,skew or scale the element, use to 2d or 3d transformation to an element;
+transform proper when you use you can add these properties:
+translate,rotate,scalex, scaley; rotatex, rotatey,rotatex
+
+
+Transition property is used when an element change its value it give smoothness over agiven period.
+
+transition-property: property that you want to change,
+transition-duration:
+transition-timing:
+transition-delay
+
+__
+transition: width:2s, height:4s
+___________________________________________________________________
+
+CSS ANIMATION:
+use to animate css properties with more control:
+
+@keyframes name{
+from{} to{}
+}
+
+@keyframes animationname{
+0%{bottom:0; box-shadow:0 0} 50%{bottom:50px; box-shadow:10} 100%{}
+}
+
+animation: animationname 0.5x ease 0s infinite alternate both;
+
+animation-name:animationname
+namimation-duration:0.5s
+animation-timing:ease 
+animation-delay:0s
+animation-direction:alternate
+________________________________________________________________________
+
+combined selecter:
+ h1, h2,.pop,h2{}
+h1{}
+.para{}
+#para{}
+a[]
+pseudo class selector:
+you can select different element of a state;
+:hover
+:visited
+h1:hover{}
+.para>h2>p
+*{} universal selectors:
+h1+p{}
+____________________________________________________________________
+
+		
+table css
+
+table,tr,td,th{ border:2px solid black, border-collapse:collapse}
+_______________________________________
+
+what is cascade style sheet:
+cascade mean if you give firstly h1 a property value red and later you again define it blue then it will override red, now it will be blue;
+
+specifity:
+it means that selector will be used according to its importance: if specifity of one selector is more then the same to other one then it will apply
+
+controlling inheritance:
+interit:value coming from parent element if you write inherit
+
+initial: default value that is assign from css
+unset: value will be reset to default
+
+

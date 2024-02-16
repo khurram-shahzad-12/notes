@@ -1,0 +1,8 @@
+redux check documentation link it's easy and working fine:
+https://redux-toolkit.js.org/tutorials/quick-start
+
+
+youtube video link:
+https://www.youtube.com/watch?v=fxT54eRIsc4
+
+if issue youtube video check description, you will find github link as well. thanks
