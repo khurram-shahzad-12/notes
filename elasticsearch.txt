@@ -46,6 +46,8 @@ always run as administrator
  http://localhost:5601/?code=739742
 open in new window and add token:
 
+
+add that token that you toook from elastic searh add here and it will connected with elastic search
 ____________________________________
 elastic search when you start a server you say it is a node and collection of two to three node it is called cluster,
 you can make different cluster like one collection or cluster is use to searching and one for analysing;
