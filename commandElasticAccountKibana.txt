@@ -1,0 +1,74 @@
+if you have elastic username and password and you want to connect it with kibana then go to command prompt and write this command to check if these credentials are ok, because you need to create an account in elasticsearch that will assign a permission to kibana;
+
+
+curl "-X GET" "http://localhost:9200/" -u "username:password"
+
+example is 
+
+
+curl -X GET "http://20.238.38.143:9200/" -u "elastic:D11HRXJ1jdjpSNpmo9Oj"
+ its output will confir that if these are ok or not
+
+
+{
+  "name" : "localhost",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "nGba0suYRB2RTFxE0Bwdiw",
+  "version" : {
+    "number" : "7.17.7",
+    "build_flavor" : "default",
+    "build_type" : "deb",
+    "build_hash" : "78dcaaa8cee33438b91eca7f5c7f56a70fec9e80",
+    "build_date" : "2022-10-17T15:29:54.167373105Z",
+    "build_snapshot" : false,
+    "lucene_version" : "8.11.1",
+    "minimum_wire_compatibility_version" : "6.8.0",
+    "minimum_index_compatibility_version" : "6.0.0-beta1"
+  },
+  "tagline" : "You Know, for Search"
+}
+
+**********************************************************
+
+
+still stay in command prompt if you want to create a new account for kibana then you can use this command
+here kibana-server-user will be username that is created for kibana and username will be defualt i think elastic and password will be password
+here strong pasword mean new account user password that you jsut created;
+http://localhost:9200 is the endpoint
+
+first command is not good some error use name from error but set role and password as command mention below
+
+
+wrong but with good reference
+curl -X POST "http://localhost:9200/_security/user/kibana-service-user" -H "Content-Type: application/json" -u "superuser_username:superuser_password" -d '{"password" : "strong_password","roles" : [ "kibana_system" ]}'
+
+
+
+right command
+
+curl -X POST "http://20.238.38.143:9200/_security/user/kibana-service-user" -u "elastic:D11HRXJ1jdjpSNpmo9Oj" -H "Content-Type: application/json" -d "{\"password\": \"strongPassword123\", \"roles\": [\"kibana_system\"]}"
+
+
+****************************************
+
+
+
+after creating username and password go to kibana and keep remember version should be same as elastic search it is, now go to config folder and inside you will find a file name kibana.yml file open it, it will be comment every where, now go to the section of elastic search and change the address to the one you have, old one is like http://localhost:9200, you will change this with the address where the elasticsearch is been hosted, 
+
+now uncomment username and password, and replace them with the username and password that you created for elastic search close everything and restart kibana.bat file that is inside of bin folder;
+
+
+once it started go to the http://localhost:5601 and enter elastic search username and password you kibana will be connected with elasticsearch;
+
+this all process should in command i mean the way thay you run kibana.bat file this file should be urn in command prompt
+
+
+
+
+
+
+
+
+
+
+
